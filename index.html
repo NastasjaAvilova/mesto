@@ -3,19 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./vendor/normalize.css">
   <link rel="stylesheet" href="./pages/index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;900&display=swap" rel="stylesheet"> 
   <title>Mesto</title>
 </head>
 <body class="root">
   <header class="header">
+    <img class="header__logo" src="./images/Logo.png" alt="логотип 'Mesto Russia' ">
+
   </header>
 <main>
-  <section>
+  <section class="profile">
+    <div class="profile__data">
+      <img class="profile__avatar" src="./images/image.jpg" alt="Жак-Ив Кусто">
+      <div class="profile__info">
+        <h1 class="profile__title">Жак-Ив Кусто<img class="profile__edit-button" src="./images/Edit_Button.png"></h1>
+        <p class="profile__subtitle">Исследователь океана</p>
+      </div>
+    </div>
+    <img class="profile__add-button" src="./images/Add_Button.png">
 
+  </section>
+  <section class="elements">
+    <div class="elements__card">
+      <img class="elements__image" src="./images/Paris.jpg" alt="">
+      <div class="elements__card-caption">
+        <h2 class="elements__title">Париж</h3>
+        <img class="elements__like" src="./images/Like.png" alt="">
+      </div>
+    </div>
+    <div class="elements__card">
+      <img class="elements__image" src="./images/Amsterdam.jpg" alt="">
+      <div class="elements__card-caption">
+        <h2 class="elements__title">Амстердам</h3>
+        <img class="elements__like" src="./images/Like.png" alt="">
+      </div>
+    </div>
+    <div class="elements__card">
+      <img class="elements__image" src="./images/Stockholm.jpg" alt="">
+      <div class="elements__card-caption">
+        <h2 class="elements__title">Стокгольм</h3>
+          <img class="elements__like" src="./images/Like.png" alt="">
+      </div>
+    </div>
+    <div class="elements__card">
+      <img class="elements__image" src="./images/Moscow.jpg" alt="">
+      <div class="elements__card-caption">
+        <h2 class="elements__title">Москва</h3>
+        <img class="elements__like" src="./images/Like.png" alt="">
+      </div>
+    </div>
+    <div class="elements__card">
+      <img class="elements__image" src="./images/Piter.jpg" alt="">
+      <div class="elements__card-caption">
+        <h2 class="elements__title">Санкт-Петербург</h3>
+        <img class="elements__like" src="./images/Like.png" alt="">
+      </div>
+    </div>
+    <div class="elements__card">
+      <img class="elements__image" src="./images/Mozhaysk.jpg" alt="">
+      <div class="elements__card-caption">
+        <h2 class="elements__title">Можайск</h3>
+        <img class="elements__like" src="./images/Like.png" alt="">
+      </div>
+    </div>
   </section>
 </main>
 
-<footer>
+<footer class="footer">
+  <p>&copy; 2020 Mesto Russia</p>
 
 </footer>
 </body>
