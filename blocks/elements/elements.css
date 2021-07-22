@@ -10,17 +10,22 @@
   width: 100%;
 } 
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
+  .elements {
+    grid-column-gap: 8px;
+  }
+}
+
+@media screen and (max-width: 600px) {
   .elements {
     grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 16px;
   }
 }
 
 @media screen and (max-width: 400px) {
   .elements {
     grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(6, 1fr);
     max-width: 282px;
-    /* width: 88%; */
   }
 }

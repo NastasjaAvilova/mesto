@@ -4,4 +4,23 @@
   height: 74px;
   margin-top: 45px;
   border-bottom: 1px #545454 solid;
+  max-width: 880px;
+  flex-direction: column;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media screen and (max-width: 940px) {
+  .header {
+    width: 95vw;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .header {
+    width: 100vw;
+    height: 84px;
+    margin-top: 0;
+  
+  }
 }

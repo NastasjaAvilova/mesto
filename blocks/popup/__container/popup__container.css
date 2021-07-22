@@ -16,3 +16,11 @@
   max-width: 358px;
   max-height: 259px;
 }
+
+@media screen and (max-width: 400px) {
+  .popup__container {
+    max-width: 282px;
+    padding: 25px 22px 25px 22px;
+    width: 75vw;
+  }
+}

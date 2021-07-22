@@ -7,3 +7,12 @@
   margin: 16px 0 0 0;
   padding: 0;
 }
+
+@media screen and (max-width: 640px) {
+  .profile__description {
+    font-style: normal;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+  }
+}

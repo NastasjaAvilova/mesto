@@ -1,15 +1,9 @@
 .root {
-  max-width: 880px;
-  display: flex;
-  flex-direction: column;
-  margin-right: auto;
-  margin-left: auto;
-  background: black;
   font-family: 'Inter', Arial, sans-serif;
-}
-
-@media screen and (max-width: 320px) {
-  .root{
-    max-width: 282px;
-  }
+  background: black;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
 }
