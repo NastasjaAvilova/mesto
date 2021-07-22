@@ -1,4 +1,18 @@
 .elements__like {
-  max-width: 22px;
-  max-height: 19px;
+  width: 22px;
+  height: 19px;
+  background-image: url(../../../images/Like.png);
+  -webkit-transition: opacity 0.3s ease;
+  -moz-transition: opacity 0.3s ease;
+  -ms-transition: opacity 0.3s ease;
+  -o-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+
+.elements__like:hover {
+  opacity: .5;
+}
+
+.elements__like:active {
+  background-image: url(/images/Like_action.png);
 }

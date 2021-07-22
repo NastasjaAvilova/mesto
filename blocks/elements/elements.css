@@ -12,16 +12,13 @@
   width: 100%;
 } 
 
-/* @media screen and (max-width: 1024px) {
-  .profile {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: 14px;
-    max-width: 928px;
+@media screen and (max-width: 768px) {
+  .elements {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media screen and (max-width: 940px) {
+/* @media screen and (max-width: 940px) { 
   .profile {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(6, 1fr);

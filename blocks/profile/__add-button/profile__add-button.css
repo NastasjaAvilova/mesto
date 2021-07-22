@@ -1,4 +1,13 @@
 .profile__add-button {
   margin-left: auto;
   margin-right: 0;
+  -webkit-transition: opacity 0.3s ease;
+  -moz-transition: opacity 0.3s ease;
+  -ms-transition: opacity 0.3s ease;
+  -o-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+
+.profile__add-button:hover {
+  opacity: .6;
 }
