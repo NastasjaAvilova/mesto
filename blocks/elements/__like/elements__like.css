@@ -1,6 +1,8 @@
 .elements__like {
   width: 22px;
   height: 19px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
   background-image: url(../../../images/Like.png);
   -webkit-transition: opacity 0.3s ease;
   -moz-transition: opacity 0.3s ease;
