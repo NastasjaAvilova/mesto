@@ -20,7 +20,6 @@
 @media screen and (max-width: 640px) {
   .profile__add-button {
     margin: 0;
-    width: 282px;
     background-image: url(../../../images/plus.png);
     width: 16px;
     height: 16px;
