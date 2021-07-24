@@ -1,13 +1,16 @@
 .profile__info {
-  display: flex;
+  display: grid;
   flex-direction: column;
-  justify-content: center;
-  position: relative;
+  grid-template-columns: repeat(2, auto);
+  /* justify-content: center; */
+  /* position: relative; */
   max-width: 530px;
+  margin-top: 10px;
 }
 
 @media screen and (max-width: 640px) {
   .profile__info {
   margin-bottom: 36px;
+  margin-left: 30px;
   }
 }

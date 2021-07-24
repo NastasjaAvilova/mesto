@@ -2,12 +2,13 @@
   width: 24px;
   height: 24px;
   margin-left: 18px;
+  margin-top: 15px;
   background-image: url(../../../images/Edit_Button.png);
   border: none;
   background-color: rgba(0, 0, 0, 0);
-  position: absolute;
-  right: -40px;
-  top: 32px;
+  /* position: absolute; */
+  /* right: -40px;
+  top: 32px; */
   -webkit-transition: opacity 0.3s ease;
   -moz-transition: opacity 0.3s ease;
   -ms-transition: opacity 0.3s ease;
@@ -23,6 +24,8 @@
   .profile__edit-button {
     width: 18px;
     height: 18px;
+    /* position: absolute; */
     background-size: contain;
+    margin-top: 32px;
   }
 }
