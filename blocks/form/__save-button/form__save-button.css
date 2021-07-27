@@ -1,4 +1,4 @@
-.edit-form__save-button {
+.form__save-button {
   background-color: rgb(0, 0, 0);
   color: white;
   font-style: normal;
@@ -12,6 +12,7 @@
   border-radius: 2px;
   margin: 48px 0 0 0;
   border: none;
+  cursor: pointer;
   -webkit-transition: opacity 0.3s ease;
   -moz-transition: opacity 0.3s ease;
   -ms-transition: opacity 0.3s ease;
@@ -19,12 +20,12 @@
   transition: opacity 0.3s ease;
 }
 
-.edit-form__save-button:hover {
+.form__save-button:hover {
   opacity: .8;
 }
 
 @media screen and (max-width: 400px) {
-  .edit-form__save-button {
+  .form__save-button {
     height: 46px;
   }
 }

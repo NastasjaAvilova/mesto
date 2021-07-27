@@ -1,7 +1,8 @@
 // Блок объявления переменных
 // --------------------
 // Поля формы
-let form = document.querySelectorAll('.edit-form__text-field')
+let inputName = document.getElementsByName('input_name')[0]
+let inputDescription = document.getElementsByName('input_description')[0]
 
 // Кнопка редактирования
 let editButton = document.querySelector('.profile__edit-button')
@@ -9,22 +10,24 @@ let editButton = document.querySelector('.profile__edit-button')
 // Кнопка закрытия поп-апа
 let closeButton = document.querySelector('.popup__close-button')
 
-// Кнопка сохранения профиля
-let saveButton = document.querySelector('.edit-form__save-button')
+// Форма редактирования профиля
+let form = document.querySelector('.form')
 
 // Получаем данные пользователя из профиля
 let profileName = document.querySelector('.profile__name')
 let profileDescription = document.querySelector('.profile__description')
 
+// Задаём переменную для поп-апа
+let popup = document.querySelector('.popup')
+
+// И для правила когда он открыт
+let target_class = 'popup_opened'
+
 // Блок запуска поп-апа
 // --------------------
-function togglePopup() {
   // Переключает видимость поп-апа с редактированием профиля
-  let popup = document.querySelector('.popup')
-
-  // Класс, которым мы будем манипулировать
-  let target_class = 'popup_opened'
-
+function togglePopup() {
+  
   // Если в поп-апе уже есть нужный класс,
   if (popup.classList.contains(target_class)) {
     // Мы его отключаем
@@ -36,8 +39,8 @@ function togglePopup() {
     console.log('popup opened')
 
     // Подтягиваем данные профиля в форму
-    form[0].value = profileName.textContent
-    form[1].value = profileDescription.textContent
+    inputName.value = profileName.textContent
+    inputDescription.value = profileDescription.textContent
   }
 
 }
@@ -53,8 +56,8 @@ function saveProfile(evt) {
   evt.preventDefault()
 
   // Присваиваем профилю значения из формы
-  profileName.textContent = form[0].value
-  profileDescription.textContent = form[1].value
+  profileName.textContent = inputName.value
+  profileDescription.textContent = inputDescription.value
 
   console.log('profile saved')
 
@@ -63,4 +66,4 @@ function saveProfile(evt) {
 }
 
 // Задаём действие кнопке сохранения
-saveButton.addEventListener('click', saveProfile)
+form.addEventListener('submit', saveProfile)

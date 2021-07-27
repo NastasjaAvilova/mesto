@@ -1,11 +1,12 @@
 .profile__add-button {
-  background-image: url(../../../images/Add_Button.png);
+  background-image: url(../../../images/Add_Button.svg);
   width: 150px;
   height: 50px;
   margin-left: auto;
   margin-right: 0;
   background-color: rgb(0, 0, 0);
   border: none;
+  cursor: pointer;
   -webkit-transition: opacity 0.3s ease;
   -moz-transition: opacity 0.3s ease;
   -ms-transition: opacity 0.3s ease;
@@ -20,11 +21,12 @@
 @media screen and (max-width: 640px) {
   .profile__add-button {
     margin: 0;
-    background-image: url(../../../images/plus.png);
-    width: 16px;
+    background-image: url(../../../images/Add_Button_Big.svg);
+    width: 282px;
+    /* width: 16px;
     height: 16px;
     padding: 17px 133px 17px 133px;
-    border: solid 2px white;
+    border: solid 2px white; */
     background-repeat: no-repeat;
     background-position: center;
   }

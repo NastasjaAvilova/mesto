@@ -1,9 +1,10 @@
 .elements__like {
-  width: 22px;
-  height: 19px;
+  min-width: 22px;
+  min-height: 19px;
   border: none;
+  cursor: pointer;
   background-color: rgba(0, 0, 0, 0);
-  background-image: url(../../../images/Like.png);
+  background-image: url(../../../images/like.svg);
   -webkit-transition: opacity 0.3s ease;
   -moz-transition: opacity 0.3s ease;
   -ms-transition: opacity 0.3s ease;
@@ -16,5 +17,5 @@
 }
 
 .elements__like:active {
-  background-image: url(/images/Like_action.png);
+  background-image: url(../../../images/like_active.svg);
 }

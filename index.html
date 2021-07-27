@@ -9,7 +9,7 @@
 </head>
 <body class="root">
   <header class="header">
-    <img class="header__logo" src="./images/Logo.png" alt="логотип 'Mesto Russia' ">
+    <img class="header__logo" src="./images/logo.svg" alt="логотип 'Mesto Russia' ">
 
   </header>
 <main class="content">
@@ -18,54 +18,54 @@
       <img class="profile__avatar" src="./images/image.jpg" alt="Жак-Ив Кусто">
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <button class="profile__edit-button"></button>
+        <button type="button" class="profile__edit-button"></button>
         <p class="profile__description">Исследователь океана</p>
       </div>
     </div>
-    <button class="profile__add-button"></button>
+    <button type="button" class="profile__add-button"></button>
 
   </section>
   <section class="elements">
     <div class="elements__card">
-      <img class="elements__image" src="./images/Paris.jpg" alt="">
+      <img class="elements__image" src="./images/Paris.jpg" alt="Панорама Парижа с цветущей магнолией">
       <div class="elements__card-caption">
         <h2 class="elements__title">Париж</h2>
-        <button class="elements__like"></button>
+        <button type="button" class="elements__like"></button>
       </div>
     </div>
     <div class="elements__card">
-      <img class="elements__image" src="./images/Amsterdam.jpg" alt="">
+      <img class="elements__image" src="./images/Amsterdam.jpg" alt="Цветные домики в Амстердаме">
       <div class="elements__card-caption">
         <h2 class="elements__title">Амстердам</h2>
-        <button class="elements__like"></button>
+        <button type="button" class="elements__like"></button>
       </div>
     </div>
     <div class="elements__card">
-      <img class="elements__image" src="./images/Stockholm.jpg" alt="">
+      <img class="elements__image" src="./images/Stockholm.jpg" alt="Вид на центральную часть Стокгольма">
       <div class="elements__card-caption">
         <h2 class="elements__title">Стокгольм</h2>
-          <button class="elements__like"></button>
+          <button type="button" class="elements__like"></button>
       </div>
     </div>
     <div class="elements__card">
-      <img class="elements__image" src="./images/Moscow.jpg" alt="">
+      <img class="elements__image" src="./images/Moscow.jpg" alt="Закат в Москве, сталинская высотка">
       <div class="elements__card-caption">
         <h2 class="elements__title">Москва</h2>
-        <button class="elements__like"></button>
+        <button type="button" class="elements__like"></button>
       </div>
     </div>
     <div class="elements__card">
-      <img class="elements__image" src="./images/Piter.jpg" alt="">
+      <img class="elements__image" src="./images/Piter.jpg" alt="Фотография Исаакиевского собора в Санкт-Петербурге и реки Невы">
       <div class="elements__card-caption">
         <h2 class="elements__title">Санкт-Петербург</h2>
-        <button class="elements__like"></button>
+        <button type="button" class="elements__like"></button>
       </div>
     </div>
     <div class="elements__card">
-      <img class="elements__image" src="./images/Mozhaysk.jpg" alt="">
+      <img class="elements__image" src="./images/Mozhaysk.jpg" alt="Никольский собор в Можайске">
       <div class="elements__card-caption">
         <h2 class="elements__title">Можайск</h2>
-        <button class="elements__like"></button>
+        <button type="button" class="elements__like"></button>
       </div>
     </div>
   </section>
@@ -78,12 +78,12 @@
 </footer>
 <div class="popup">
   <div class="popup__container">
-    <button class="popup__close-button"></button>
+    <button class="popup__close-button" type="button" ></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="edit-form" action="#">
-        <input class="edit-form__text-field" type="text" name="name">
-        <input class="edit-form__text-field" name="description">
-        <button class="edit-form__save-button" type="submit">Сохранить</button>
+      <form class="form">
+        <input class="form__text-field" type="text" name="input_name">
+        <input class="form__text-field" type="text" name="input_description">
+        <button class="form__save-button" type="submit">Сохранить</button>
       </form>
     </div>
   </div>
