@@ -1,8 +1,8 @@
 // Блок объявления переменных
 // --------------------
 // Поля формы
-let inputName = document.getElementsByName('input_name')[0]
-let inputDescription = document.getElementsByName('input_description')[0]
+let inputName = document.querySelector('[name="input_name"]')
+let inputDescription = document.querySelector('[name="input_description"]')
 
 // Кнопка редактирования
 let editButton = document.querySelector('.profile__edit-button')
