@@ -26,57 +26,24 @@
 
   </section>
   <section class="elements">
+    <template name="card">
     <div class="elements__card">
       <img class="elements__image" src="./images/Paris.jpg" alt="Панорама Парижа с цветущей магнолией">
+      <button class="elements__trash" type="button"></button>
       <div class="elements__card-caption">
         <h2 class="elements__title">Париж</h2>
         <button type="button" class="elements__like"></button>
       </div>
     </div>
-    <div class="elements__card">
-      <img class="elements__image" src="./images/Amsterdam.jpg" alt="Цветные домики в Амстердаме">
-      <div class="elements__card-caption">
-        <h2 class="elements__title">Амстердам</h2>
-        <button type="button" class="elements__like"></button>
-      </div>
-    </div>
-    <div class="elements__card">
-      <img class="elements__image" src="./images/Stockholm.jpg" alt="Вид на центральную часть Стокгольма">
-      <div class="elements__card-caption">
-        <h2 class="elements__title">Стокгольм</h2>
-          <button type="button" class="elements__like"></button>
-      </div>
-    </div>
-    <div class="elements__card">
-      <img class="elements__image" src="./images/Moscow.jpg" alt="Закат в Москве, сталинская высотка">
-      <div class="elements__card-caption">
-        <h2 class="elements__title">Москва</h2>
-        <button type="button" class="elements__like"></button>
-      </div>
-    </div>
-    <div class="elements__card">
-      <img class="elements__image" src="./images/Piter.jpg" alt="Фотография Исаакиевского собора в Санкт-Петербурге и реки Невы">
-      <div class="elements__card-caption">
-        <h2 class="elements__title">Санкт-Петербург</h2>
-        <button type="button" class="elements__like"></button>
-      </div>
-    </div>
-    <div class="elements__card">
-      <img class="elements__image" src="./images/Mozhaysk.jpg" alt="Никольский собор в Можайске">
-      <div class="elements__card-caption">
-        <h2 class="elements__title">Можайск</h2>
-        <button type="button" class="elements__like"></button>
-      </div>
-    </div>
+    </template>
   </section>
-  
 </main>
 
 <footer class="footer">
   <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
 
 </footer>
-<div class="popup">
+<div class="popup" name="popup_edit">
   <div class="popup__container">
     <button class="popup__close-button" type="button" ></button>
       <h2 class="popup__title">Редактировать профиль</h2>
@@ -87,6 +54,24 @@
       </form>
     </div>
   </div>
+  <div class="popup" name="popup_add">
+    <div class="popup__container">
+      <button class="popup__close-button" type="button" ></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form class="form" name="card-add-form">
+          <input placeholder="Название" class="form__text-field" type="text" name="place_name">
+          <input placeholder="Ссылка на картинку" class="form__text-field" type="text" name="place_link">
+          <button class="form__save-button" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup" name="popup_view">
+      <div class="popup__image-container">
+        <img class="popup__image" src="./images/Mozhaysk.jpg" alt="Никольский собор в Можайске">
+        <button class="popup__close-button" type="button"></button>
+        <p class="popup__">Можайск</p>
+      </div>
+    </div>
   <script src="scripts/index.js" defer></script>
 </body>
 </html>

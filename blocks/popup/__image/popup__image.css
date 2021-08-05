@@ -1,0 +1,16 @@
+.popup__image {
+  max-height: 540px;
+  object-fit: contain;
+  /* display: flex;
+  position: relative;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0; */
+}
+
+@media screen and (max-width: 640px) {
+  .popup__image {
+    max-width: 240px;
+  }
+}

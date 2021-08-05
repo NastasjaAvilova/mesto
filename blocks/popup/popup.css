@@ -10,4 +10,6 @@
   right: 0;
   align-items: center;
   justify-content: center;
+  opacity: 0;
+  transition: visibility 1s, opacity 0.5s linear;
 }
