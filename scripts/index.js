@@ -47,15 +47,6 @@ function openPopup(popup) {
   console.log('popup opened')
 }
 
-// function closePopups() {
-//   // Закрывает все попапы
-//   for (i = 0; i < allPopups.length; i++) {
-//     // Пробегается по поп-апам и закрывает их
-//     allPopups[i].classList.remove(openClass)
-//   }
-//   console.log('popups closed')
-// }
-
 // Блок поп-апа профиля
 // --------------------
 // Открывает поп-ап редактирования профиля
