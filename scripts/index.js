@@ -25,12 +25,12 @@ let profileName = document.querySelector('.profile__name')
 let profileDescription = document.querySelector('.profile__description')
 
 // Задаём переменную для поп-апа редактировния
-let popupEdit = document.querySelector('[name="popup_edit"]')
+let popupEdit = document.querySelector('#popup_edit')
 // Задаём переменную для поп-апа добавления
-let popupAdd = document.querySelector('[name="popup_add"]')
+let popupAdd = document.querySelector('#popup_add')
 
 // даём имя попапу для просмотра картинок
-const popupView = document.querySelector('[name="popup_view"]')
+const popupView = document.querySelector('#popup_view')
 
 // Зададим класс для всех поп-апов, чтобы обращаться ко всем сразу
 const allPopups = document.querySelectorAll('.popup')
@@ -151,7 +151,7 @@ popupView.querySelector('.popup__view-title').textContent = evt.target.getAttrib
 
 function createCard(data) {
   // Находим шаблон
-  const card_template = document.querySelector('[name="card"]').content;
+  const card_template = document.querySelector('#card').content;
   // Клонируем его
   const card = card_template.querySelector('.elements__card').cloneNode(true)
   
