@@ -28,6 +28,10 @@ let profileDescription = document.querySelector('.profile__description')
 let popupEdit = document.querySelector('[name="popup_edit"]')
 // Задаём переменную для поп-апа добавления
 let popupAdd = document.querySelector('[name="popup_add"]')
+
+// даём имя попапу для просмотра картинок
+const popupView = document.querySelector('[name="popup_view"]')
+
 // Зададим класс для всех поп-апов, чтобы обращаться ко всем сразу
 const allPopups = document.querySelectorAll('.popup')
 
@@ -128,6 +132,23 @@ function deleteCard(evt) {
   console.log('card removed')
 }
 
+//функция для клика по картинке
+
+function makeImageBig(evt) {
+
+  // возьмём картинку в попапе
+const popupImage = popupView.querySelector('.popup__image') 
+  // зададим ей те же атрибуты, что и у картинки, по которой мы кликнули
+popupImage.setAttribute('src', evt.target.getAttribute('src')) 
+popupImage.setAttribute('alt', evt.target.getAttribute('alt')) 
+popupView.querySelector('.popup__view-title').textContent = evt.target.getAttribute('alt')
+
+  // зададим текст такой же, как в карточке
+
+  // откроем попап с картинкой
+  openPopup(popupView)
+}
+
 function createCard(data) {
   // Находим шаблон
   const card_template = document.querySelector('[name="card"]').content;
@@ -139,7 +160,13 @@ function createCard(data) {
   card.querySelector('.elements__image').setAttribute('src', data.link) // img src
   card.querySelector('.elements__image').setAttribute('alt', data.name)
 
+  card.querySelector('.elements__image').addEventListener('click', makeImageBig)
+
+  // buttons
   card.querySelector('.elements__trash').addEventListener('click', deleteCard)
+  card.querySelector('.elements__like').addEventListener('click', evt => {
+    evt.target.classList.toggle('elements__like_active')
+  })
   cards.prepend(card)
   console.log('card added')
 }
