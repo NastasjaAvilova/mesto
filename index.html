@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,45 +8,36 @@
   <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
+
 <body class="root">
   <header class="header">
     <img class="header__logo" src="./images/logo.svg" alt="логотип 'Mesto Russia' ">
 
   </header>
-<main class="content">
-  <section class="profile">
-    <div class="profile__data">
-      <img class="profile__avatar" src="./images/image.jpg" alt="Жак-Ив Кусто">
-      <div class="profile__info">
-        <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <button type="button" class="profile__edit-button"></button>
-        <p class="profile__description">Исследователь океана</p>
+  <main class="content">
+    <section class="profile">
+      <div class="profile__data">
+        <img class="profile__avatar" src="./images/image.jpg" alt="Жак-Ив Кусто">
+        <div class="profile__info">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <button type="button" class="profile__edit-button"></button>
+          <p class="profile__description">Исследователь океана</p>
+        </div>
       </div>
-    </div>
-    <button type="button" class="profile__add-button"></button>
+      <button type="button" class="profile__add-button"></button>
 
-  </section>
-  <section class="elements">
-    <template id="card">
-    <div class="elements__card">
-      <img class="elements__image" src="./images/Paris.jpg" alt="Панорама Парижа с цветущей магнолией">
-      <button class="elements__trash" type="button"></button>
-      <div class="elements__card-caption">
-        <h2 class="elements__title">Париж</h2>
-        <button type="button" class="elements__like" name="elements__like"></button>
-      </div>
-    </div>
-    </template>
-  </section>
-</main>
+    </section>
+    <section class="elements">
+    </section>
+  </main>
 
-<footer class="footer">
-  <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
+  <footer class="footer">
+    <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
 
-</footer>
-<div class="popup" id="popup_edit">
-  <div class="popup__container">
-    <button class="popup__close-button" type="button" ></button>
+  </footer>
+  <div class="popup" id="popup_edit">
+    <div class="popup__container">
+      <button class="popup__close-button" type="button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="form" name="profile-edit-form">
         <input class="form__text-field" type="text" name="input_name">
@@ -56,22 +48,34 @@
   </div>
   <div class="popup" id="popup_add">
     <div class="popup__container">
-      <button class="popup__close-button" type="button" ></button>
-        <h2 class="popup__title">Новое место</h2>
-        <form class="form" name="card-add-form">
-          <input placeholder="Название" class="form__text-field" type="text" name="place_name">
-          <input placeholder="Ссылка на картинку" class="form__text-field" type="text" name="place_link">
-          <button class="form__save-button" type="submit">Сохранить</button>
-        </form>
+      <button class="popup__close-button" type="button"></button>
+      <h2 class="popup__title">Новое место</h2>
+      <form class="form" name="card-add-form">
+        <input placeholder="Название" class="form__text-field" type="text" name="place_name">
+        <input placeholder="Ссылка на картинку" class="form__text-field" type="text" name="place_link">
+        <button class="form__save-button" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+  <div class="popup" id="popup_view">
+    <div class="popup__image-container">
+      <img class="popup__image" src="./images/Mozhaysk.jpg" alt="Никольский собор в Можайске">
+      <button class="popup__close-button" type="button"></button>
+      <p class="popup__view-title">Можайск</p>
+    </div>
+  </div>
+  <template id="card">
+    <div class="elements__card">
+      <img class="elements__image" src="./images/Paris.jpg" alt="Панорама Парижа с цветущей магнолией">
+      <button class="elements__trash" type="button"></button>
+      <div class="elements__card-caption">
+        <h2 class="elements__title">Париж</h2>
+        <button type="button" class="elements__like" name="elements__like"></button>
       </div>
     </div>
-    <div class="popup" id="popup_view">
-      <div class="popup__image-container">
-        <img class="popup__image" src="./images/Mozhaysk.jpg" alt="Никольский собор в Можайске">
-        <button class="popup__close-button" type="button"></button>
-        <p class="popup__view-title">Можайск</p>
-      </div>
-    </div>
+  </template>
+  <script src="scripts/initial-cards.js"></script>
   <script src="scripts/index.js" defer></script>
 </body>
+
 </html>
