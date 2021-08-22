@@ -84,11 +84,28 @@ document.querySelectorAll(".popup__close-button").forEach(button => {
   button.addEventListener("click", () => closePopup(popup));
 });
 
+// Вешаем обработчик на все поп-апы
+allPopups.forEach(popup => {
+  popup.addEventListener("click", evt => {
+    // Если мы кликаем на сам поп-ап, а не на вложенные в него элементы, он закроется
+    if (evt.target === evt.currentTarget) closePopup(evt.currentTarget);
+  });
+});
+
+// Для всех поп-апов задаём возможность закрытия по ESC
+document.addEventListener("keydown", function(evt) {
+  if (evt.key === "Escape") {
+    allPopups.forEach(function(popup) {
+      closePopup(popup);
+    });
+  }
+});
+
 //Блок с карточками
 const cards = document.querySelector(".elements");
 
 function deleteCard(evt) {
-  card = evt.target.closest(".elements__card"); // parent
+  const card = evt.target.closest(".elements__card"); // parent
   card.remove();
   console.log("card removed");
 }
@@ -133,19 +150,15 @@ function createCard(data) {
   return card;
 }
 
-//
-initialCards.forEach(cardData => cards.prepend(createCard(cardData)));
+// Создаём первичное наполнение
+initialCards.forEach(cardData => cards.append(createCard(cardData)));
 
 const addCardNameField = popupAdd.querySelector('[name="place_name"]');
 const addCardLinkField = popupAdd.querySelector('[name="place_link"]');
 
 // Блок поп-апа добавления картинки
 // --------------------
-function openAddPopup() {
-  openPopup(popupAdd);
-}
-
-addButton.addEventListener("click", openAddPopup);
+addButton.addEventListener("click", () => openPopup(popupAdd));
 
 function addCardFromPopup(evt) {
   evt.preventDefault();
@@ -156,12 +169,14 @@ function addCardFromPopup(evt) {
     link: addCardLinkField.value
   };
 
+  // Добавляем карточку в начало списка
   cards.prepend(createCard(cardData));
 
   console.log("card added");
 
   closePopup(popupAdd);
 
+  // Сбрасываем форму
   evt.target.reset();
 }
 

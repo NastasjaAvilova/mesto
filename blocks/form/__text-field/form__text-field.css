@@ -15,3 +15,12 @@
     padding-bottom: 8px;
   }
 }
+
+.form__text-field:invalid {
+  box-shadow: none;
+  /* border-bottom: 1px red solid; */
+} 
+
+/* .form__text-field:valid {
+  border: 1px solid green;
+}  */
