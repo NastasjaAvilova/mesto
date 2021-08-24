@@ -42,10 +42,10 @@
       <form class="form" name="profile-edit-form">
         <input placeholder="Имя" class="form__text-field" type="text" name="input_name" minlength="2" maxlength="40"
           required>
-        <span class="form__input-error input_name-error"></span>
+        <span class="form__input-error" id="input_name-error"></span>
         <input placeholder="О себе" class="form__text-field" type="text" name="input_description" minlength="2"
           maxlength="200" required>
-        <span class="form__input-error input_description-error"></span>
+        <span class="form__input-error" id="input_description-error"></span>
         <button class="form__save-button" type="submit">Сохранить</button>
       </form>
     </div>
@@ -57,9 +57,9 @@
       <form class="form" name="card-add-form">
         <input placeholder="Название" class="form__text-field" type="text" name="place_name" minlength="2"
           maxlength="30" required>
-        <span class="form__input-error place_name-error"></span>
+        <span class="form__input-error" id="place_name-error"></span>
         <input placeholder="Ссылка на картинку" class="form__text-field" type="url" name="place_link" required>
-        <span class="form__input-error place_link-error"></span>
+        <span class="form__input-error" id="place_link-error"></span>
         <button class="form__save-button" type="submit">Создать</button>
       </form>
     </div>

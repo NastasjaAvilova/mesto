@@ -1,6 +1,6 @@
 function showInputError(formElement, inputElement, errorMessage) {
   // Находим элемент ошибки
-  const errorElement = formElement.querySelector(`.${inputElement.name}-error`);
+  const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
   // Стилизуем поле ввода как ошибочное
   inputElement.classList.add(formConfig.inputErrorClass);
   // Задаём текст ошибки
@@ -11,7 +11,7 @@ function showInputError(formElement, inputElement, errorMessage) {
 
 function hideInputError(formElement, inputElement) {
   // Находим элемент ошибки
-  const errorElement = formElement.querySelector(`.${inputElement.name}-error`);
+  const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
   // Удаляем ошибочный стиль поля ввода
   inputElement.classList.remove(formConfig.inputErrorClass);
   // Скрываем ошибку
