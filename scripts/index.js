@@ -1,46 +1,18 @@
-// Блок объявления переменных
-// --------------------
-// Поля формы
-const inputName = document.querySelector('[name="input_name"]');
-const inputDescription = document.querySelector('[name="input_description"]');
-const placeName = document.querySelector('[name="place_name"]');
-const placeLink = document.querySelector('[name="place_link"]');
-
-// Кнопка редактирования
-const editButton = document.querySelector(".profile__edit-button");
-
-// Кнопка добавления картинки
-const addButton = document.querySelector(".profile__add-button");
-
-// Форма редактирования профиля
-const profileEditForm = document.querySelector('[name="profile-edit-form"]');
-//
-const cardAddForm = document.querySelector('[name="card-add-form"]');
-
-// Получаем данные пользователя из профиля
-const profileName = document.querySelector(".profile__name");
-const profileDescription = document.querySelector(".profile__description");
-
-// Задаём переменную для поп-апа редактировния
-const popupEdit = document.querySelector("#popup_edit");
-// Задаём переменную для поп-апа добавления
-const popupAdd = document.querySelector("#popup_add");
-
-// даём имя попапу для просмотра картинок
-const popupView = document.querySelector("#popup_view");
-
-// Зададим класс для всех поп-апов, чтобы обращаться ко всем сразу
-const allPopups = document.querySelectorAll(".popup");
-
-// И для правила когда он открыт
-const openClass = "popup_opened";
-
 // Общий блок поведения поп-апов
 // --------------------
-// Переключает видимость заданного поп-апа
+// Слушатель Escape для закрытия открытого поп-апа
+function popupEscapeListener(evt) {
+  if (evt.key === "Escape") closePopup(document.querySelector(`.${openClass}`));
+}
+
+// Делаем заданный поп-ап видимым
 function openPopup(popup) {
   // Откроем поп-ап, добавив к нему модификатор
   popup.classList.add(openClass);
+
+  // Создаём обработчик нажатия Escape для закрытия текущего поп-апа
+  document.addEventListener("keydown", popupEscapeListener);
+
   console.log("popup opened");
 }
 
@@ -55,6 +27,7 @@ function openEditPopup() {
   inputName.value = profileName.textContent;
   inputDescription.value = profileDescription.textContent;
 }
+
 // Сохраняем профиль
 function saveProfile(evt) {
   // Останавливаем стандартный submit
@@ -75,7 +48,11 @@ editButton.addEventListener("click", openEditPopup);
 profileEditForm.addEventListener("submit", saveProfile);
 
 function closePopup(popup) {
-  popup.classList.remove("popup_opened");
+  // Удаляем класс видимости поп-апа
+  popup.classList.remove(openClass);
+
+  // Удаляем обработчик события, закрывающий поп-ап
+  document.removeEventListener("keydown", popupEscapeListener)
 }
 
 // Всем кнопкам закрытия задаём действие закрытия
@@ -92,18 +69,8 @@ allPopups.forEach(popup => {
   });
 });
 
-// Для всех поп-апов задаём возможность закрытия по ESC
-document.addEventListener("keydown", function(evt) {
-  if (evt.key === "Escape") {
-    allPopups.forEach(function(popup) {
-      closePopup(popup);
-    });
-  }
-});
 
 //Блок с карточками
-const cards = document.querySelector(".elements");
-
 function deleteCard(evt) {
   const card = evt.target.closest(".elements__card"); // parent
   card.remove();
@@ -111,7 +78,6 @@ function deleteCard(evt) {
 }
 
 //функция для клика по картинке
-
 function makeImageBig(evt) {
   // возьмём картинку в попапе
   const popupImage = popupView.querySelector(".popup__image");
