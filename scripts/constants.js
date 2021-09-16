@@ -14,7 +14,7 @@ const addButton = document.querySelector(".profile__add-button");
 
 // Форма редактирования профиля
 const profileEditForm = document.querySelector('[name="profile-edit-form"]');
-//
+// Форма добавления
 const cardAddForm = document.querySelector('[name="card-add-form"]');
 
 // Получаем данные пользователя из профиля
@@ -25,9 +25,12 @@ const profileDescription = document.querySelector(".profile__description");
 const popupEdit = document.querySelector("#popup_edit");
 // Задаём переменную для поп-апа добавления
 const popupAdd = document.querySelector("#popup_add");
+const addCardNameField = popupAdd.querySelector('[name="place_name"]');
+const addCardLinkField = popupAdd.querySelector('[name="place_link"]');
 
 // даём имя попапу для просмотра картинок
 const popupView = document.querySelector("#popup_view");
+const popupImage = popupView.querySelector(".popup__image");
 
 // Зададим класс для всех поп-апов, чтобы обращаться ко всем сразу
 const allPopups = document.querySelectorAll(".popup");
@@ -37,6 +40,8 @@ const openClass = "popup_opened";
 
 // Для блока с карточками
 const cards = document.querySelector(".elements");
+
+const cardTemplateId = "#card";
 
 // Для валидации
 const formConfig = {
