@@ -1,3 +1,12 @@
+import {
+  openClass,
+  popupEdit,
+  inputName,
+  inputDescription,
+  profileName,
+  profileDescription
+} from './constants.js'
+
 // Общий блок поведения поп-апов
 // --------------------
 // Слушатель Escape для закрытия открытого поп-апа

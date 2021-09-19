@@ -1,7 +1,20 @@
 import { initialCards } from "./initial-cards.js";
 import { FormValidator } from "./formvalidator.js";
-import { Card } from "./card.js";
+import Card from "./card.js";
 import { openPopup, closePopup, openEditPopup, saveProfile } from "./popup.js";
+import {
+  editButton,
+  profileEditForm,
+  allPopups,
+  cardTemplateId,
+  cards,
+  addButton,
+  cardAddForm,
+  formConfig,
+  popupAdd,
+  addCardNameField,
+  addCardLinkField
+} from "./constants.js";
 
 // Что будет, когда мы нажимаем кнопки
 editButton.addEventListener("click", openEditPopup);
@@ -25,9 +38,9 @@ allPopups.forEach(popup => {
 // Создаём первичное наполнение
 initialCards.forEach(cardData => {
   // Конструируем карточку
-  let c = new Card(cardData, cardTemplateId);
+  const card = new Card(cardData, cardTemplateId);
   // Добавляем на страницу
-  cards.append(c.createCard());
+  cards.append(card.createCard());
 });
 
 // Блок поп-апа добавления картинки
@@ -43,8 +56,8 @@ function addCardFromPopup(evt) {
   };
 
   // Добавляем карточку в начало списка
-  let c = new Card(cardData, cardTemplateId);
-  cards.prepend(c.createCard());
+  const card = new Card(cardData, cardTemplateId);
+  cards.prepend(card.createCard());
 
   console.log("card added");
 
@@ -52,12 +65,15 @@ function addCardFromPopup(evt) {
 
   // Сбрасываем форму
   evt.target.reset();
+  popupAdd.querySelector(formConfig.submitButtonSelector).classList.add(formConfig.inactiveButtonClass);
+  popupAdd.querySelector(formConfig.submitButtonSelector).disabled = true;
 }
 
 cardAddForm.addEventListener("submit", addCardFromPopup);
 
 // Добавляем валидацию ко всем формам согласно конфигурации
-document.querySelectorAll(formConfig.formElement).forEach(form => {
-  let v = new FormValidator(formConfig, form);
-  v.enableValidation();
-});
+const cardValidator = new FormValidator(formConfig, cardAddForm);
+cardValidator.enableValidation();
+
+const profileValidator = new FormValidator(formConfig, profileEditForm);
+profileValidator.enableValidation(); 

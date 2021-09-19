@@ -1,50 +1,50 @@
 // Блок объявления переменных
 // --------------------
 // Поля формы
-const inputName = document.querySelector('[name="input_name"]');
-const inputDescription = document.querySelector('[name="input_description"]');
-const placeName = document.querySelector('[name="place_name"]');
-const placeLink = document.querySelector('[name="place_link"]');
+export const inputName = document.querySelector('[name="input_name"]');
+export const inputDescription = document.querySelector('[name="input_description"]');
+export const placeName = document.querySelector('[name="place_name"]');
+export const placeLink = document.querySelector('[name="place_link"]');
 
 // Кнопка редактирования
-const editButton = document.querySelector(".profile__edit-button");
+export const editButton = document.querySelector(".profile__edit-button");
 
 // Кнопка добавления картинки
-const addButton = document.querySelector(".profile__add-button");
+export const addButton = document.querySelector(".profile__add-button");
 
 // Форма редактирования профиля
-const profileEditForm = document.querySelector('[name="profile-edit-form"]');
+export const profileEditForm = document.querySelector('[name="profile-edit-form"]');
 // Форма добавления
-const cardAddForm = document.querySelector('[name="card-add-form"]');
+export const cardAddForm = document.querySelector('[name="card-add-form"]');
 
 // Получаем данные пользователя из профиля
-const profileName = document.querySelector(".profile__name");
-const profileDescription = document.querySelector(".profile__description");
+export const profileName = document.querySelector(".profile__name");
+export const profileDescription = document.querySelector(".profile__description");
 
 // Задаём переменную для поп-апа редактировния
-const popupEdit = document.querySelector("#popup_edit");
+export const popupEdit = document.querySelector("#popup_edit");
 // Задаём переменную для поп-апа добавления
-const popupAdd = document.querySelector("#popup_add");
-const addCardNameField = popupAdd.querySelector('[name="place_name"]');
-const addCardLinkField = popupAdd.querySelector('[name="place_link"]');
+export const popupAdd = document.querySelector("#popup_add");
+export const addCardNameField = popupAdd.querySelector('[name="place_name"]');
+export const addCardLinkField = popupAdd.querySelector('[name="place_link"]');
 
 // даём имя попапу для просмотра картинок
-const popupView = document.querySelector("#popup_view");
-const popupImage = popupView.querySelector(".popup__image");
+export const popupView = document.querySelector("#popup_view");
+export const popupImage = popupView.querySelector(".popup__image");
 
 // Зададим класс для всех поп-апов, чтобы обращаться ко всем сразу
-const allPopups = document.querySelectorAll(".popup");
+export const allPopups = document.querySelectorAll(".popup");
 
 // И для правила когда он открыт
-const openClass = "popup_opened";
+export const openClass = "popup_opened";
 
 // Для блока с карточками
-const cards = document.querySelector(".elements");
+export const cards = document.querySelector(".elements");
 
-const cardTemplateId = "#card";
+export const cardTemplateId = "#card";
 
 // Для валидации
-const formConfig = {
+export const formConfig = {
   formElement: ".form",
   inputElement: ".form__text-field",
   submitButtonSelector: ".form__save-button",

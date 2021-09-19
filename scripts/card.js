@@ -1,7 +1,8 @@
 import { openPopup } from "./popup.js";
+import { popupView, popupImage } from "./constants.js";
 
 // Создайте класс Card, который создаёт карточку с текстом и ссылкой на изображение:
-export class Card {
+export default class Card {
   // принимает в конструктор её данные и селектор её template-элемента;
   constructor(data, templateIdSelector) {
     // Находим в DOM шаблон с заданным селектором и клонируем его в объект
