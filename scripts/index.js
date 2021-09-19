@@ -1,5 +1,5 @@
 import { initialCards } from "./initial-cards.js";
-import { FormValidator } from "./formvalidator.js";
+import { FormValidator } from "./FormValidator.js";
 import Card from "./card.js";
 import { openPopup, closePopup, openEditPopup, saveProfile } from "./popup.js";
 import {
