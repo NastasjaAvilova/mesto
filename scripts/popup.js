@@ -7,6 +7,61 @@ import {
   profileDescription
 } from './constants.js'
 
+export default class Popup {
+  constructor(selector) {
+    this._popup = document.querySelector(selector);
+  }
+
+  open() {
+    // Откроем поп-ап, добавив к нему модификатор
+    this._popup.classList.add(openClass);
+
+    // Создаём обработчик нажатия Escape для закрытия текущего поп-апа
+    document.addEventListener("keydown", this._handleEscClose);
+
+    this.setEventListeners();
+    console.log("popup opened");
+  }
+
+  close() {
+    // Удаляем класс видимости поп-апа
+    this._popup.classList.remove(openClass);
+
+    // Удаляем обработчик события, закрывающий поп-ап
+    document.removeEventListener("keydown", this._handleEscClose);
+  }
+
+  _handleEscClose() { this.close(); }
+
+  setEventListeners() {
+    // Закрытие по кнопке закрытия
+    this._popup.querySelector(".popup__close-button").addEventListener("click", this.close);
+
+    // Закрытие по клику вне поп-апа
+    this._popup.addEventListener("click", evt => {
+      // Если мы кликаем на сам поп-ап, а не на вложенные в него элементы, он закроется
+      if (evt.target === evt.currentTarget) this.close();
+    });
+  }
+}
+
+/*
+  // Всем кнопкам закрытия задаём действие закрытия
+document.querySelectorAll(".popup__close-button").forEach(button => {
+  const popup = button.closest(".popup");
+  button.addEventListener("click", () => closePopup(popup));
+});
+
+// Вешаем обработчик на все поп-апы
+allPopups.forEach(popup => {
+  popup.addEventListener("click", evt => {
+    // Если мы кликаем на сам поп-ап, а не на вложенные в него элементы, он закроется
+    if (evt.target === evt.currentTarget) closePopup(evt.currentTarget);
+  });
+});
+*/
+
+}
 // Общий блок поведения поп-апов
 // --------------------
 // Слушатель Escape для закрытия открытого поп-апа
@@ -16,21 +71,10 @@ function popupEscapeListener(evt) {
 
 // Делаем заданный поп-ап видимым
 function openPopup(popup) {
-  // Откроем поп-ап, добавив к нему модификатор
-  popup.classList.add(openClass);
-
-  // Создаём обработчик нажатия Escape для закрытия текущего поп-апа
-  document.addEventListener("keydown", popupEscapeListener);
-
-  console.log("popup opened");
+  
 }
 
 function closePopup(popup) {
-  // Удаляем класс видимости поп-апа
-  popup.classList.remove(openClass);
-
-  // Удаляем обработчик события, закрывающий поп-ап
-  document.removeEventListener("keydown", popupEscapeListener);
 }
 
 // Блок поп-апа профиля

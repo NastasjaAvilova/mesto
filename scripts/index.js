@@ -1,7 +1,7 @@
-import { initialCards } from "./initial-cards.js";
+import initialCards from "./initial-cards.js";
 import { FormValidator } from "./FormValidator.js";
 import Card from "./card.js";
-import { openPopup, closePopup, openEditPopup, saveProfile } from "./popup.js";
+import Popup, { openPopup, closePopup, openEditPopup, saveProfile } from "./popup.js";
 import {
   editButton,
   profileEditForm,
@@ -15,6 +15,8 @@ import {
   addCardNameField,
   addCardLinkField
 } from "./constants.js";
+
+import Section from "./Section.js";
 
 // Что будет, когда мы нажимаем кнопки
 editButton.addEventListener("click", openEditPopup);
@@ -33,14 +35,6 @@ allPopups.forEach(popup => {
     // Если мы кликаем на сам поп-ап, а не на вложенные в него элементы, он закроется
     if (evt.target === evt.currentTarget) closePopup(evt.currentTarget);
   });
-});
-
-// Создаём первичное наполнение
-initialCards.forEach(cardData => {
-  // Конструируем карточку
-  const card = new Card(cardData, cardTemplateId);
-  // Добавляем на страницу
-  cards.append(card.createCard());
 });
 
 // Блок поп-апа добавления картинки
@@ -77,3 +71,35 @@ cardValidator.enableValidation();
 
 const profileValidator = new FormValidator(formConfig, profileEditForm);
 profileValidator.enableValidation(); 
+
+class Nastja {
+  constructor(renderer) {
+  this._renderer = renderer;
+  }
+  render(item) {
+    return `Nastja ${this._renderer(item)}`
+  }
+}
+ 
+function eat(sushi) {
+  return 'eats ' + sushi
+}
+
+const n = new Nastja(food => 'studies ' + food)
+console.log(n.render('js'))
+
+
+function cardRenderer(data) {
+  const card = new Card(data, cardTemplateId);
+  return card.createCard();
+}
+
+
+const elementsSection = new Section({
+  items: initialCards,
+  renderer: cardRenderer}, ".elements");
+
+// console.log(elementsSection);
+// console.log(new Section({ items: initialCards }, ".content"));
+
+const addPopup = new Popup()

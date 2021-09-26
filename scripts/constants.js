@@ -21,6 +21,7 @@ export const cardAddForm = document.querySelector('[name="card-add-form"]');
 export const profileName = document.querySelector(".profile__name");
 export const profileDescription = document.querySelector(".profile__description");
 
+
 // Задаём переменную для поп-апа редактировния
 export const popupEdit = document.querySelector("#popup_edit");
 // Задаём переменную для поп-апа добавления
@@ -52,3 +53,6 @@ export const formConfig = {
   inputErrorClass: "form__text-field_error",
   errorClass: "form__input-error_visible"
 };
+
+// // Кнопка редактирования
+// export const sectionElements = document.querySelector(".elements");
