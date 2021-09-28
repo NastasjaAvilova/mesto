@@ -1,10 +1,9 @@
-import { openPopup } from "./popup.js";
-import { popupView, popupImage } from "./constants.js";
+import { openPopup } from "./Popup.js";
 
 // Создайте класс Card, который создаёт карточку с текстом и ссылкой на изображение:
 export default class Card {
   // принимает в конструктор её данные и селектор её template-элемента;
-  constructor(data, templateIdSelector) {
+  constructor(data, templateIdSelector, handleCardClick) {
     // Находим в DOM шаблон с заданным селектором и клонируем его в объект
     this._card = document
       .querySelector(templateIdSelector)
@@ -12,6 +11,8 @@ export default class Card {
       .cloneNode(true);
     // Делаем ссылку на картинку для удобства
     this._image = this._card.querySelector(".elements__image");
+    // Запоминаем коллбэк для клика по карточке
+    this._cardClickHandler = handleCardClick;
 
     // Вызываем приватные методы
     this._fillCard(data);
@@ -30,7 +31,7 @@ export default class Card {
     // Увеличить картинку
     this._card
       .querySelector(".elements__image")
-      .addEventListener("click", () => this._makeImageBig());
+      .addEventListener("click", () => this._cardClickHandler());
     // Удаление
     this._card
       .querySelector(".elements__trash")
@@ -54,18 +55,18 @@ export default class Card {
     console.log("card removed");
   }
 
-  _makeImageBig() {
-    // возьмём картинку в попапе
-    // зададим ей те же атрибуты, что и у нашей картинки
-    popupImage.src = this._image.src;
-    popupImage.alt = this._image.alt;
+  // _makeImageBig() {
+  //   // возьмём картинку в попапе
+  //   // зададим ей те же атрибуты, что и у нашей картинки
+  //   popupImage.src = this._image.src;
+  //   popupImage.alt = this._image.alt;
 
-    // зададим текст такой же, как в карточке
-    popupView.querySelector(".popup__view-title").textContent = this._image.alt;
+  //   // зададим текст такой же, как в карточке
+  //   popupView.querySelector(".popup__view-title").textContent = this._image.alt;
 
-    // откроем попап с картинкой
-    openPopup(popupView);
-  }
+  //   // откроем попап с картинкой
+  //   openPopup(popupView);
+  // }
 
   createCard() {
     return this._card;

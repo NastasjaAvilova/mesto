@@ -21,17 +21,19 @@ export const cardAddForm = document.querySelector('[name="card-add-form"]');
 export const profileName = document.querySelector(".profile__name");
 export const profileDescription = document.querySelector(".profile__description");
 
+export const profileSelectors = {
+  name: '.profile__name',
+  description: '.profile__description'
+}
 
-// Задаём переменную для поп-апа редактировния
-export const popupEdit = document.querySelector("#popup_edit");
-// Задаём переменную для поп-апа добавления
-export const popupAdd = document.querySelector("#popup_add");
-export const addCardNameField = popupAdd.querySelector('[name="place_name"]');
-export const addCardLinkField = popupAdd.querySelector('[name="place_link"]');
+export const popupSelectors = {
+  popupAdd: "#popup_add",
+  popupEdit: "#popup_edit",
+  popupView: "#popup_view"
+}
 
-// даём имя попапу для просмотра картинок
-export const popupView = document.querySelector("#popup_view");
-export const popupImage = popupView.querySelector(".popup__image");
+// export const addCardNameField = popupAdd.querySelector('[name="place_name"]');
+// export const addCardLinkField = popupAdd.querySelector('[name="place_link"]');
 
 // Зададим класс для всех поп-апов, чтобы обращаться ко всем сразу
 export const allPopups = document.querySelectorAll(".popup");

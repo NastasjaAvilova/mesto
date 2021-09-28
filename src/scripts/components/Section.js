@@ -1,5 +1,3 @@
-// export const sectionElements = document.querySelector(".elements");
-
 export default class Section {
   constructor({ items, renderer }, selector) {
     this._section = document.querySelector(selector);

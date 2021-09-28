@@ -1,23 +1,20 @@
 import {
   openClass,
-  popupEdit,
   inputName,
   inputDescription,
   profileName,
   profileDescription
-} from './constants.js'
+} from '../constants.js'
 
 export default class Popup {
-  constructor(selector) {
-    this._popup = document.querySelector(selector);
-  }
+  constructor(selector) { this._popup = document.querySelector(selector); }
 
   open() {
     // Откроем поп-ап, добавив к нему модификатор
     this._popup.classList.add(openClass);
 
     // Создаём обработчик нажатия Escape для закрытия текущего поп-апа
-    document.addEventListener("keydown", this._handleEscClose);
+    document.addEventListener("keydown", this._handleEscClose.bind(this));
 
     this.setEventListeners();
     console.log("popup opened");
@@ -28,14 +25,16 @@ export default class Popup {
     this._popup.classList.remove(openClass);
 
     // Удаляем обработчик события, закрывающий поп-ап
-    document.removeEventListener("keydown", this._handleEscClose);
+    document.removeEventListener("keydown", this._handleEscClose.bind(this));
   }
 
-  _handleEscClose() { this.close(); }
+  _handleEscClose(evt) {
+    if (evt.key === "Escape") this.close();
+  }
 
   setEventListeners() {
     // Закрытие по кнопке закрытия
-    this._popup.querySelector(".popup__close-button").addEventListener("click", this.close);
+    this._popup.querySelector(".popup__close-button").addEventListener("click", this.close.bind(this));
 
     // Закрытие по клику вне поп-апа
     this._popup.addEventListener("click", evt => {
@@ -45,23 +44,6 @@ export default class Popup {
   }
 }
 
-/*
-  // Всем кнопкам закрытия задаём действие закрытия
-document.querySelectorAll(".popup__close-button").forEach(button => {
-  const popup = button.closest(".popup");
-  button.addEventListener("click", () => closePopup(popup));
-});
-
-// Вешаем обработчик на все поп-апы
-allPopups.forEach(popup => {
-  popup.addEventListener("click", evt => {
-    // Если мы кликаем на сам поп-ап, а не на вложенные в него элементы, он закроется
-    if (evt.target === evt.currentTarget) closePopup(evt.currentTarget);
-  });
-});
-*/
-
-}
 // Общий блок поведения поп-апов
 // --------------------
 // Слушатель Escape для закрытия открытого поп-апа
@@ -100,7 +82,7 @@ function saveProfile(evt) {
 
   console.log("profile saved");
 
-  closePopup(popupEdit);
+  // closePopup(popupEdit);
 }
 
 export { openPopup, closePopup, openEditPopup, saveProfile };
