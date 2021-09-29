@@ -51,7 +51,7 @@ function addPopupCallback() {
   const card = new Card({
     name: data.place_name.value,
     link: data.place_link.value
-  }, cardTemplateId)
+  }, cardTemplateId, expandImage)
 
   // Добавляем карточку в секцию с карточками
   elementsSection.add(card.createCard())
@@ -81,6 +81,12 @@ const addPopup = new PopupWithForm(popupSelectors.popupAdd, addPopupCallback);
 const viewPopup = new PopupWithImage(popupSelectors.popupView);
 // viewPopup.open("https://td-kora.ru/uploadedFiles/eshopimages/big/morkov.jpg", "Оцените морковь!");
 
+// Коллбэк увеличения картинки для клика по карточкам
+function expandImage() {
+  // Открываем поп-ап с картинкой, передаём в него данные картинки
+  viewPopup.open(this._image.src, this._image.alt)
+  console.log('card expanded')
+}
 
 // Блок валидации форм
 // -------------------
@@ -91,24 +97,22 @@ cardValidator.enableValidation();
 const profileValidator = new FormValidator(formConfig, profileEditForm);
 profileValidator.enableValidation(); 
 
-// Коллбэк увеличения картинки для клика по карточкам
-function expandImage() {
-  // Открываем поп-ап с картинкой, передаём в него данные картинки
-
-  console.log('card expanded')
-}
-
+// Блок секций
+// -----------
+// Рендерер для секции с карточками
 function cardRenderer(data) {
-  const card = new Card(data, cardTemplateId);
+  const card = new Card(data, cardTemplateId, expandImage);
   return card.createCard();
 }
 
+// Секция с карточками
 const elementsSection = new Section({
   items: initialCards,
   renderer: cardRenderer}, ".elements");
 
 
 // Блок поведения кнопок
+// ---------------------
 addButton.addEventListener('click', addPopup.open.bind(addPopup));
 // Что будет, когда мы нажимаем кнопки
 editButton.addEventListener("click", () => {
@@ -123,4 +127,3 @@ editButton.addEventListener("click", () => {
   editPopup.open();
 });
 
-console.log(editPopup._form)

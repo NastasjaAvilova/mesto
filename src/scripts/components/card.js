@@ -19,19 +19,17 @@ export default class Card {
     this._setEventListeners();
   }
 
-  _fillCard(data) {
+  _fillCard({ name, link }) {
     // Задаём новое наполнение
-    this._card.querySelector(".elements__title").textContent = data.name;
-    this._image.setAttribute("src", data.link); // img src
-    this._image.setAttribute("alt", data.name);
+    this._card.querySelector(".elements__title").textContent = name;
+    this._image.setAttribute("src", link); // img src
+    this._image.setAttribute("alt", name);
   }
 
   _setEventListeners() {
     // Навешиваем обработчики событий
-    // Увеличить картинку
-    this._card
-      .querySelector(".elements__image")
-      .addEventListener("click", () => this._cardClickHandler());
+    // Действие при клике
+    this._image.addEventListener("click", () => this._cardClickHandler());
     // Удаление
     this._card
       .querySelector(".elements__trash")
