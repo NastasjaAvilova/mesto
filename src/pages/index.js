@@ -1,44 +1,26 @@
 import initialCards from "../scripts/initial-cards.js";
 import FormValidator from "../scripts/components/FormValidator.js";
 import Card from "../scripts/components/card.js";
-import Popup, { openPopup, closePopup, openEditPopup, saveProfile } from "../scripts/components/popup.js";
+import Section from "../scripts/components/Section.js";
+import PopupWithImage from "../scripts/components/PopupWithImage.js";
+import PopupWithForm from "../scripts/components/PopupWithForm.js";
+import UserInfo from "../scripts/components/UserInfo.js";
 import {
   editButton,
   profileEditForm,
   cardTemplateId,
-  cards,
   addButton,
   cardAddForm,
   formConfig,
   profileSelectors,
-  // addCardNameField,
-  // addCardLinkField,
   popupSelectors
 } from "../scripts/constants.js";
 
-import Section from "../scripts/components/Section.js";
-
-import PopupWithImage from "../scripts/components/PopupWithImage.js";
-import PopupWithForm from "../scripts/components/PopupWithForm.js";
-
-import UserInfo from "../scripts/components/UserInfo.js";
-
-class Nastja {
-  constructor(renderer) {
-  this._renderer = renderer;
-  }
-  render(item) {
-    return `Nastja ${this._renderer(item)}`
-  }
-}
-function eat(sushi) {
-  return 'eats ' + sushi
-}
-const n = new Nastja(food => 'studies ' + food)
-console.log(n.render('js'))
-
 // Объект, управляющий данными профиля на странице
-const userInfo = new UserInfo(profileSelectors.name, profileSelectors.description);
+const userInfo = new UserInfo(
+  profileSelectors.name,
+  profileSelectors.description
+);
 
 // Блок поп-апов
 // -------------
@@ -46,15 +28,19 @@ const userInfo = new UserInfo(profileSelectors.name, profileSelectors.descriptio
 function addPopupCallback() {
   // Запомним данные формы в переменную
   const data = this._getInputValues();
-  console.log(data)
+  console.log(data);
   // Создаём объект карточки из данных формы
-  const card = new Card({
-    name: data.place_name.value,
-    link: data.place_link.value
-  }, cardTemplateId, expandImage)
+  const card = new Card(
+    {
+      name: data.place_name.value,
+      link: data.place_link.value
+    },
+    cardTemplateId,
+    expandImage
+  );
 
   // Добавляем карточку в секцию с карточками
-  elementsSection.add(card.createCard())
+  elementsSection.add(card.createCard());
   this.close();
 }
 
@@ -66,26 +52,28 @@ function editPopupCallback() {
   // Задаём значения из формы с помощью метода setUserInfo
   userInfo.setUserInfo({
     name: formData.input_name.value,
-    description: formData.input_description.value,
-  })
+    description: formData.input_description.value
+  });
   console.log("profile saved");
   this.close();
 }
 
 // Объявляем поп-апы
 // Поп-ап сформой редактирования профиля
-const editPopup = new PopupWithForm(popupSelectors.popupEdit, editPopupCallback);
+const editPopup = new PopupWithForm(
+  popupSelectors.popupEdit,
+  editPopupCallback
+);
 // Поп-ап с формой добавления карточек
 const addPopup = new PopupWithForm(popupSelectors.popupAdd, addPopupCallback);
 // Поп-ап с большой картинкой
 const viewPopup = new PopupWithImage(popupSelectors.popupView);
-// viewPopup.open("https://td-kora.ru/uploadedFiles/eshopimages/big/morkov.jpg", "Оцените морковь!");
 
 // Коллбэк увеличения картинки для клика по карточкам
 function expandImage() {
   // Открываем поп-ап с картинкой, передаём в него данные картинки
-  viewPopup.open(this._image.src, this._image.alt)
-  console.log('card expanded')
+  viewPopup.open(this._image.src, this._image.alt);
+  console.log("card expanded");
 }
 
 // Блок валидации форм
@@ -95,7 +83,7 @@ const cardValidator = new FormValidator(formConfig, cardAddForm);
 cardValidator.enableValidation();
 
 const profileValidator = new FormValidator(formConfig, profileEditForm);
-profileValidator.enableValidation(); 
+profileValidator.enableValidation();
 
 // Блок секций
 // -----------
@@ -106,14 +94,17 @@ function cardRenderer(data) {
 }
 
 // Секция с карточками
-const elementsSection = new Section({
-  items: initialCards,
-  renderer: cardRenderer}, ".elements");
-
+const elementsSection = new Section(
+  {
+    items: initialCards,
+    renderer: cardRenderer
+  },
+  ".elements"
+);
 
 // Блок поведения кнопок
 // ---------------------
-addButton.addEventListener('click', addPopup.open.bind(addPopup));
+addButton.addEventListener("click", addPopup.open.bind(addPopup));
 // Что будет, когда мы нажимаем кнопки
 editButton.addEventListener("click", () => {
   // Получаем информацию профиля из userInfo
@@ -126,4 +117,3 @@ editButton.addEventListener("click", () => {
   // Открываем поп-ап
   editPopup.open();
 });
-

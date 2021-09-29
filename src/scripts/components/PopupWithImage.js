@@ -6,10 +6,11 @@ export default class PopupWithImage extends Popup {
     this._image = this._popup.querySelector(".popup__image");
   }
   open(src, text) {
+    // Открывает поп-ап, задаёт значения полей
     this._image.src = src;
     this._image.alt = text;
     this._popup.querySelector(".popup__view-title").textContent = text;
-    
+
     super.open();
   }
 }

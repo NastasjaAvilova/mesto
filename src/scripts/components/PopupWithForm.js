@@ -1,5 +1,4 @@
 import Popup from "./popup.js";
-import { cardAddForm } from "../constants.js";
 
 export default class PopupWithForm extends Popup {
   constructor(selector, submitCallback) {
@@ -11,15 +10,14 @@ export default class PopupWithForm extends Popup {
   close() {
     super.close();
     this._form.reset();
-  }  
+  }
 
   _getInputValues() {
     return this._form.elements;
   }
 
   setEventListeners() {
-    super.setEventListeners()
+    super.setEventListeners();
     this._form.addEventListener("submit", this._submitCallback);
-    // cardAddForm.addEventListener("submit", addCardFromPopup);
   }
 }

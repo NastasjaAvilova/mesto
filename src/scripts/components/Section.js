@@ -21,7 +21,6 @@ export default class Section {
     if (append) this._section.append(element);
     // Добавление в начало
     else this._section.prepend(element);
-    // console.log(append ? `appended` : 'prepended', element);
   }
 }
 

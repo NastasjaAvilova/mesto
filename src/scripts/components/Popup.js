@@ -1,13 +1,9 @@
-import {
-  openClass,
-  inputName,
-  inputDescription,
-  profileName,
-  profileDescription
-} from '../constants.js'
+import { openClass } from "../constants.js";
 
 export default class Popup {
-  constructor(selector) { this._popup = document.querySelector(selector); }
+  constructor(selector) {
+    this._popup = document.querySelector(selector);
+  }
 
   open() {
     // Откроем поп-ап, добавив к нему модификатор
@@ -34,7 +30,9 @@ export default class Popup {
 
   setEventListeners() {
     // Закрытие по кнопке закрытия
-    this._popup.querySelector(".popup__close-button").addEventListener("click", this.close.bind(this));
+    this._popup
+      .querySelector(".popup__close-button")
+      .addEventListener("click", this.close.bind(this));
 
     // Закрытие по клику вне поп-апа
     this._popup.addEventListener("click", evt => {
@@ -43,46 +41,3 @@ export default class Popup {
     });
   }
 }
-
-// Общий блок поведения поп-апов
-// --------------------
-// Слушатель Escape для закрытия открытого поп-апа
-function popupEscapeListener(evt) {
-  if (evt.key === "Escape") closePopup(document.querySelector(`.${openClass}`));
-}
-
-// Делаем заданный поп-ап видимым
-function openPopup(popup) {
-  
-}
-
-function closePopup(popup) {
-}
-
-// Блок поп-апа профиля
-// --------------------
-// Открывает поп-ап редактирования профиля
-function openEditPopup() {
-  // Открываем попап
-  openPopup(popupEdit);
-
-  // Подтягиваем данные профиля в форму
-  inputName.value = profileName.textContent;
-  inputDescription.value = profileDescription.textContent;
-}
-
-// Сохраняем профиль
-function saveProfile(evt) {
-  // Останавливаем стандартный submit
-  evt.preventDefault();
-
-  // Присваиваем профилю значения из формы
-  profileName.textContent = inputName.value;
-  profileDescription.textContent = inputDescription.value;
-
-  console.log("profile saved");
-
-  // closePopup(popupEdit);
-}
-
-export { openPopup, closePopup, openEditPopup, saveProfile };

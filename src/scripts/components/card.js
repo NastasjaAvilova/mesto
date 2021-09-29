@@ -1,5 +1,3 @@
-import { openPopup } from "./Popup.js";
-
 // Создайте класс Card, который создаёт карточку с текстом и ссылкой на изображение:
 export default class Card {
   // принимает в конструктор её данные и селектор её template-элемента;
@@ -52,19 +50,6 @@ export default class Card {
     this._card.remove();
     console.log("card removed");
   }
-
-  // _makeImageBig() {
-  //   // возьмём картинку в попапе
-  //   // зададим ей те же атрибуты, что и у нашей картинки
-  //   popupImage.src = this._image.src;
-  //   popupImage.alt = this._image.alt;
-
-  //   // зададим текст такой же, как в карточке
-  //   popupView.querySelector(".popup__view-title").textContent = this._image.alt;
-
-  //   // откроем попап с картинкой
-  //   openPopup(popupView);
-  // }
 
   createCard() {
     return this._card;
