@@ -1,10 +1,11 @@
-import initialCards from "../scripts/initial-cards.js";
-import FormValidator from "../scripts/components/FormValidator.js";
-import Card from "../scripts/components/card.js";
-import Section from "../scripts/components/Section.js";
-import PopupWithImage from "../scripts/components/PopupWithImage.js";
-import PopupWithForm from "../scripts/components/PopupWithForm.js";
-import UserInfo from "../scripts/components/UserInfo.js";
+import "./index.css";
+import initialCards from "./scripts/initial-cards.js";
+import FormValidator from "./scripts/components/FormValidator.js";
+import Card from "./scripts/components/card.js";
+import Section from "./scripts/components/Section.js";
+import PopupWithImage from "./scripts/components/PopupWithImage.js";
+import PopupWithForm from "./scripts/components/PopupWithForm.js";
+import UserInfo from "./scripts/components/UserInfo.js";
 import {
   editButton,
   profileEditForm,
@@ -13,8 +14,8 @@ import {
   cardAddForm,
   formConfig,
   profileSelectors,
-  popupSelectors
-} from "../scripts/constants.js";
+  popupSelectors,
+} from "./scripts/constants.js";
 
 // Объект, управляющий данными профиля на странице
 const userInfo = new UserInfo(
@@ -33,7 +34,7 @@ function addPopupCallback() {
   const card = new Card(
     {
       name: data.place_name.value,
-      link: data.place_link.value
+      link: data.place_link.value,
     },
     cardTemplateId,
     expandImage
@@ -52,7 +53,7 @@ function editPopupCallback() {
   // Задаём значения из формы с помощью метода setUserInfo
   userInfo.setUserInfo({
     name: formData.input_name.value,
-    description: formData.input_description.value
+    description: formData.input_description.value,
   });
   console.log("profile saved");
   this.close();
@@ -97,7 +98,7 @@ function cardRenderer(data) {
 const elementsSection = new Section(
   {
     items: initialCards,
-    renderer: cardRenderer
+    renderer: cardRenderer,
   },
   ".elements"
 );
