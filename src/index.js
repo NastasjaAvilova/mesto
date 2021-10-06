@@ -1,13 +1,3 @@
-<<<<<<< HEAD:src/index.js
-import "./index.css";
-import initialCards from "./scripts/initial-cards.js";
-import FormValidator from "./scripts/components/FormValidator.js";
-import Card from "./scripts/components/card.js";
-import Section from "./scripts/components/Section.js";
-import PopupWithImage from "./scripts/components/PopupWithImage.js";
-import PopupWithForm from "./scripts/components/PopupWithForm.js";
-import UserInfo from "./scripts/components/UserInfo.js";
-=======
 import initialCards from "./../utils/initial-cards.js";
 import FormValidator from "../scripts/components/FormValidator.js";
 import Card from "../scripts/components/Card.js";
@@ -15,7 +5,6 @@ import Section from "../scripts/components/Section.js";
 import PopupWithImage from "../scripts/components/PopupWithImage.js";
 import PopupWithForm from "../scripts/components/PopupWithForm.js";
 import UserInfo from "../scripts/components/UserInfo.js";
->>>>>>> checklist in progress:src/pages/index.js
 import {
   editButton,
   profileEditForm,
@@ -24,13 +13,8 @@ import {
   cardAddForm,
   formConfig,
   profileSelectors,
-<<<<<<< HEAD:src/index.js
   popupSelectors,
-} from "./scripts/constants.js";
-=======
-  popupSelectors
 } from "../utils/constants.js";
->>>>>>> checklist in progress:src/pages/index.js
 
 // Объект, управляющий данными профиля на странице
 const userInfo = new UserInfo(
