@@ -1,4 +1,6 @@
-import initialCards from "./../utils/initial-cards.js";
+import "./index.css";
+
+import initialCards from "../utils/initial-cards.js";
 import FormValidator from "../scripts/components/FormValidator.js";
 import Card from "../scripts/components/Card.js";
 import Section from "../scripts/components/Section.js";
@@ -59,7 +61,7 @@ function editPopupCallback() {
 }
 
 // Объявляем поп-апы
-// Поп-ап сформой редактирования профиля
+// Поп-ап с формой редактирования профиля
 const editPopup = new PopupWithForm(
   popupSelectors.popupEdit,
   editPopupCallback
@@ -104,7 +106,10 @@ const elementsSection = new Section(
 
 // Блок поведения кнопок
 // ---------------------
-addButton.addEventListener("click", addPopup.open.bind(addPopup));
+addButton.addEventListener("click", () => {
+  // cardValidator._toggleButtonState();
+  addPopup.open();
+});
 // Что будет, когда мы нажимаем кнопки
 editButton.addEventListener("click", () => {
   // Получаем информацию профиля из userInfo

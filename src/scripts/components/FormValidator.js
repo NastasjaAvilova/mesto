@@ -14,7 +14,7 @@ export default class FormValidator {
 
   enableValidation() {
     // Отключаем дефолтное поведение сабмита
-    this._form.addEventListener("submit", evt => evt.preventDefault());
+    this._form.addEventListener("submit", (evt) => evt.preventDefault());
 
     // Задаём слушатели событий для текстовых полей
     this._setEventListeners();
@@ -25,7 +25,7 @@ export default class FormValidator {
     this._toggleButtonState();
 
     // Для каждого поля формы
-    this._inputList.forEach(inputElement => {
+    this._inputList.forEach((inputElement) => {
       // Добавляем обработчик ввода текста
       inputElement.addEventListener("input", () => {
         // Проверяем валидность поля
@@ -33,6 +33,11 @@ export default class FormValidator {
         // Делаем кнопку активной/неактивной
         this._toggleButtonState();
       });
+    });
+
+    this._form.addEventListener("reset", () => {
+      this._button.classList.add(this._config.inactiveButtonClass);
+      this._button.disabled = true;
     });
   }
 
@@ -75,11 +80,11 @@ export default class FormValidator {
 
   _hasInvalidInput() {
     // Возвращаем true, если в одном из полей есть ошибка при валидации
-    return this._inputList.some(inputElement => !inputElement.validity.valid);
+    return this._inputList.some((inputElement) => !inputElement.validity.valid);
   }
 
   _toggleButtonState() {
-    // Если есть хотя бы один невалидный инпут
+    // Если есть хотя бы один невалидный инпут или длина всех полей == 0
     if (this._hasInvalidInput()) {
       // сделай кнопку неактивной
       this._button.classList.add(this._config.inactiveButtonClass);
