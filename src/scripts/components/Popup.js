@@ -1,4 +1,4 @@
-import { openClass } from "../constants.js";
+import { openClass } from "./../../utils/constants.js";
 
 export default class Popup {
   constructor(selector) {

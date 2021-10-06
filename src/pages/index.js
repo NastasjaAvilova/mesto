@@ -1,6 +1,6 @@
-import initialCards from "../scripts/initial-cards.js";
+import initialCards from "./../utils/initial-cards.js";
 import FormValidator from "../scripts/components/FormValidator.js";
-import Card from "../scripts/components/card.js";
+import Card from "../scripts/components/Card.js";
 import Section from "../scripts/components/Section.js";
 import PopupWithImage from "../scripts/components/PopupWithImage.js";
 import PopupWithForm from "../scripts/components/PopupWithForm.js";
@@ -14,7 +14,7 @@ import {
   formConfig,
   profileSelectors,
   popupSelectors
-} from "../scripts/constants.js";
+} from "../utils/constants.js";
 
 // Объект, управляющий данными профиля на странице
 const userInfo = new UserInfo(
