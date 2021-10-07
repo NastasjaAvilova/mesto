@@ -9,6 +9,14 @@
   object-fit: cover;
 }
 
+.profile__avatar:hover {
+  width: 26px;
+  height: 26px;
+  padding: 47px;
+  background-image: url(../../../images/Edit_Button.svg);
+  object-fit: contain;
+}
+
 @media screen and (max-width: 640px) {
   .profile__avatar {
     margin: 0;
