@@ -9,6 +9,8 @@ export default class Card {
       .cloneNode(true);
     // Делаем ссылку на картинку для удобства
     this._image = this._card.querySelector(".elements__image");
+    // Кнопка лайка
+    this._likeButton = this._card.querySelector(".elements__like");
     // Запоминаем коллбэк для клика по карточке
     this._cardClickHandler = handleCardClick;
 
@@ -27,22 +29,23 @@ export default class Card {
   _setEventListeners() {
     // Навешиваем обработчики событий
     // Действие при клике
-    this._image.addEventListener("click", () => this._cardClickHandler());
+    this._image.addEventListener("click", () =>
+      this._cardClickHandler({
+        link: this._image.src,
+        name: this._image.alt,
+      })
+    );
     // Удаление
     this._card
       .querySelector(".elements__trash")
       .addEventListener("click", () => this._removeElement());
     // Лайк
-    this._card
-      .querySelector(".elements__like")
-      .addEventListener("click", () => this._toggleLike());
+    this._likeButton.addEventListener("click", () => this._toggleLike());
   }
 
   _toggleLike() {
     // Найти лайк в нашей карточке и переключить класс elements__like_active
-    this._card
-      .querySelector(".elements__like")
-      .classList.toggle("elements__like_active");
+    this._likeButton.classList.toggle("elements__like_active");
   }
 
   _removeElement() {

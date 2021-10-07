@@ -41,6 +41,16 @@ export default class FormValidator {
     });
   }
 
+  resetValidation() {
+    // Если есть невалидные инпуты, отключаем кнопку
+    this._toggleButtonState();
+
+    // Очищаем ошибки на всех инпутах
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+  }
+
   _showInputError(inputElement) {
     // Находим элемент ошибки
     const errorElement = this._form.querySelector(

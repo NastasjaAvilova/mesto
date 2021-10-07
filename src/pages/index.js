@@ -9,10 +9,9 @@ import PopupWithForm from "../scripts/components/PopupWithForm.js";
 import UserInfo from "../scripts/components/UserInfo.js";
 import {
   editButton,
-  profileEditForm,
   cardTemplateId,
   addButton,
-  cardAddForm,
+  formElements,
   formConfig,
   profileSelectors,
   popupSelectors,
@@ -27,34 +26,23 @@ const userInfo = new UserInfo(
 // Блок поп-апов
 // -------------
 // Функция добавления картинки из поп-апа
-function addPopupCallback() {
-  // Запомним данные формы в переменную
-  const data = this._getInputValues();
-  console.log(data);
-  // Создаём объект карточки из данных формы
-  const card = new Card(
-    {
-      name: data.place_name.value,
-      link: data.place_link.value,
-    },
-    cardTemplateId,
-    expandImage
-  );
-
-  // Добавляем карточку в секцию с карточками
-  elementsSection.add(card.createCard());
+function addPopupCallback({ place_name, place_link }) {
+  // Добавляем карточку в секцию с карточками (внутри секции отрабатывает рендерер)
+  elementsSection.add({
+    name: place_name,
+    link: place_link,
+  });
   this.close();
+  this.resetForm();
 }
 
 // Функция сохранения данных из профиля
-function editPopupCallback() {
-  // Сохраняем информацию из формы
-  const formData = this._getInputValues();
-
+function editPopupCallback(formData) {
+  console.log(formData);
   // Задаём значения из формы с помощью метода setUserInfo
   userInfo.setUserInfo({
-    name: formData.input_name.value,
-    description: formData.input_description.value,
+    name: formData.input_name,
+    description: formData.input_description,
   });
   console.log("profile saved");
   this.close();
@@ -72,25 +60,29 @@ const addPopup = new PopupWithForm(popupSelectors.popupAdd, addPopupCallback);
 const viewPopup = new PopupWithImage(popupSelectors.popupView);
 
 // Коллбэк увеличения картинки для клика по карточкам
-function expandImage() {
+function expandImage({ link, name }) {
   // Открываем поп-ап с картинкой, передаём в него данные картинки
-  viewPopup.open(this._image.src, this._image.alt);
+  viewPopup.open(link, name);
   console.log("card expanded");
 }
 
 // Блок валидации форм
 // -------------------
 // Добавляем валидацию ко всем формам согласно конфигурации
-const cardValidator = new FormValidator(formConfig, cardAddForm);
+const cardValidator = new FormValidator(formConfig, formElements.cardAddForm);
 cardValidator.enableValidation();
 
-const profileValidator = new FormValidator(formConfig, profileEditForm);
+const profileValidator = new FormValidator(
+  formConfig,
+  formElements.profileEditForm
+);
 profileValidator.enableValidation();
 
 // Блок секций
 // -----------
 // Рендерер для секции с карточками
 function cardRenderer(data) {
+  // data = {name, link}
   const card = new Card(data, cardTemplateId, expandImage);
   return card.createCard();
 }
@@ -108,16 +100,21 @@ const elementsSection = new Section(
 // ---------------------
 addButton.addEventListener("click", () => {
   // cardValidator._toggleButtonState();
+  cardValidator.resetValidation();
   addPopup.open();
 });
 // Что будет, когда мы нажимаем кнопки
 editButton.addEventListener("click", () => {
+  profileValidator.resetValidation();
   // Получаем информацию профиля из userInfo
   const { name, description } = userInfo.getUserInfo();
 
   // Задаём значения полям ввода в поп-апе
-  editPopup._getInputValues().input_name.value = name;
-  editPopup._getInputValues().input_description.value = description;
+  formElements.profileEditForm.elements.input_name.value = name;
+  formElements.profileEditForm.elements.input_description.value = description;
+
+  // Активируем кнопку сохранения и очищаем ошибки
+  editPopup.resetValidation();
 
   // Открываем поп-ап
   editPopup.open();

@@ -7,17 +7,15 @@ export const addButton = document.querySelector(".profile__add-button");
 
 // Формы
 // -----
-// Форма редактирования профиля
-export const profileEditForm = document.querySelector(
-  '[name="profile-edit-form"]'
-);
-// Форма добавления
-export const cardAddForm = document.querySelector('[name="card-add-form"]');
+export const formElements = {
+  profileEditForm: document.querySelector('[name="profile-edit-form"]'),
+  cardAddForm: document.querySelector('[name="card-add-form"]'),
+};
 
 // Селекторы данных профиля
 export const profileSelectors = {
   name: ".profile__name",
-  description: ".profile__description"
+  description: ".profile__description",
 };
 
 // Поп-апы
@@ -26,7 +24,7 @@ export const profileSelectors = {
 export const popupSelectors = {
   popupAdd: "#popup_add",
   popupEdit: "#popup_edit",
-  popupView: "#popup_view"
+  popupView: "#popup_view",
 };
 // Класс открытого поп-апа
 export const openClass = "popup_opened";
@@ -41,5 +39,5 @@ export const formConfig = {
   submitButtonSelector: ".form__save-button",
   inactiveButtonClass: "form__save-button_disabled",
   inputErrorClass: "form__text-field_error",
-  errorClass: "form__input-error_visible"
+  errorClass: "form__input-error_visible",
 };

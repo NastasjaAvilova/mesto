@@ -5,20 +5,28 @@ export default class PopupWithForm extends Popup {
     super(selector);
     this._form = this._popup.querySelector(".form");
     this._submitCallback = submitCallback.bind(this);
+    this._inputList = Array.from(this._form.querySelectorAll("input")); // Находим поля для ввода текста по тегу
+
+    // Единоразово вешаем обработчик отправки формы
+    this._form.addEventListener("submit", () => {
+      this._submitCallback(this._getInputValues());
+    });
   }
 
   close() {
     super.close();
+  }
+
+  resetForm() {
     this._form.reset();
-    console.log("form reset");
   }
 
   _getInputValues() {
-    return this._form.elements;
-  }
-
-  setEventListeners() {
-    super.setEventListeners();
-    this._form.addEventListener("submit", this._submitCallback);
+    const formValues = {};
+    // Для каждого поля ввода записываем в объект значение поля с ключом-именем поля
+    this._inputList.forEach((element) => {
+      formValues[element.name] = element.value;
+    });
+    return formValues;
   }
 }

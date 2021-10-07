@@ -8,19 +8,18 @@ export default class Section {
   }
 
   renderElements() {
-    this._items.forEach(data => {
-    // создаём DOM-элемент из объекта с данными
-    const element = this._renderer(data);
-    // Делаем append элемента
-    this.add(element, true);
+    this._items.forEach((data) => {
+      // Делаем append элемента
+      this.add(data, true);
     });
   }
 
-  add(element, append) {
+  add(data, append) {
+    // создаём DOM-элемент из объекта с данными
+    const element = this._renderer(data);
     // Добавление в конец
     if (append) this._section.append(element);
     // Добавление в начало
     else this._section.prepend(element);
   }
 }
-
