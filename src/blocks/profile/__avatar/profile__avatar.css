@@ -7,14 +7,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.profile__avatar:hover {
-  width: 26px;
-  height: 26px;
-  padding: 47px;
-  background-image: url(../../../images/Edit_Button.svg);
-  object-fit: contain;
+  background-image: url("../../../images/image.jpg");
 }
 
 @media screen and (max-width: 640px) {
