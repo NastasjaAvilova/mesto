@@ -6,18 +6,12 @@ export default class PopupWithForm extends Popup {
     this._form = this._popup.querySelector(".form");
     this._submitCallback = submitCallback.bind(this);
     this._inputList = Array.from(this._form.querySelectorAll("input")); // Находим поля для ввода текста по тегу
-
-    // Единоразово вешаем обработчик отправки формы
-    this._form.addEventListener("submit", () => {
-      this._submitCallback(this._getInputValues());
-    });
   }
 
   close() {
+    // Закрываем поп-ап
     super.close();
-  }
-
-  resetForm() {
+    // Очищаем форму
     this._form.reset();
   }
 
@@ -28,5 +22,13 @@ export default class PopupWithForm extends Popup {
       formValues[element.name] = element.value;
     });
     return formValues;
+  }
+
+  setEventListeners() {
+    super.setEventListeners();
+    // Вешаем обработчик отправки формы
+    this._form.addEventListener("submit", () => {
+      this._submitCallback(this._getInputValues());
+    });
   }
 }

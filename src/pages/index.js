@@ -38,7 +38,6 @@ function addPopupCallback({ place_name, place_link }) {
 
 // Функция сохранения данных из профиля
 function editPopupCallback(formData) {
-  console.log(formData);
   // Задаём значения из формы с помощью метода setUserInfo
   userInfo.setUserInfo({
     name: formData.input_name,
@@ -54,10 +53,13 @@ const editPopup = new PopupWithForm(
   popupSelectors.popupEdit,
   editPopupCallback
 );
+editPopup.setEventListeners();
 // Поп-ап с формой добавления карточек
 const addPopup = new PopupWithForm(popupSelectors.popupAdd, addPopupCallback);
+addPopup.setEventListeners();
 // Поп-ап с большой картинкой
 const viewPopup = new PopupWithImage(popupSelectors.popupView);
+viewPopup.setEventListeners();
 
 // Коллбэк увеличения картинки для клика по карточкам
 function expandImage({ link, name }) {
@@ -105,8 +107,6 @@ addButton.addEventListener("click", () => {
 });
 // Что будет, когда мы нажимаем кнопки
 editButton.addEventListener("click", () => {
-  // Активируем кнопку сохранения и очищаем ошибки
-  profileValidator.resetValidation();
   // Получаем информацию профиля из userInfo
   const { name, description } = userInfo.getUserInfo();
 
@@ -114,6 +114,8 @@ editButton.addEventListener("click", () => {
   formElements.profileEditForm.elements.input_name.value = name;
   formElements.profileEditForm.elements.input_description.value = description;
 
+  // Активируем кнопку сохранения и очищаем ошибки
+  profileValidator.resetValidation();
   // Открываем поп-ап
   editPopup.open();
 });

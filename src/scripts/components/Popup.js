@@ -14,7 +14,6 @@ export default class Popup {
     // Создаём обработчик нажатия Escape для закрытия текущего поп-апа
     document.addEventListener("keydown", this._escapeHandler);
 
-    this.setEventListeners();
     console.log("popup opened");
   }
 
