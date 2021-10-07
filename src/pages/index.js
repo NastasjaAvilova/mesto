@@ -105,6 +105,7 @@ addButton.addEventListener("click", () => {
 });
 // Что будет, когда мы нажимаем кнопки
 editButton.addEventListener("click", () => {
+  // Активируем кнопку сохранения и очищаем ошибки
   profileValidator.resetValidation();
   // Получаем информацию профиля из userInfo
   const { name, description } = userInfo.getUserInfo();
@@ -112,9 +113,6 @@ editButton.addEventListener("click", () => {
   // Задаём значения полям ввода в поп-апе
   formElements.profileEditForm.elements.input_name.value = name;
   formElements.profileEditForm.elements.input_description.value = description;
-
-  // Активируем кнопку сохранения и очищаем ошибки
-  editPopup.resetValidation();
 
   // Открываем поп-ап
   editPopup.open();
