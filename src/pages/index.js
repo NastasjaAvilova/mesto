@@ -33,7 +33,6 @@ function addPopupCallback({ place_name, place_link }) {
     link: place_link,
   });
   this.close();
-  this.resetForm();
 }
 
 // Функция сохранения данных из профиля
