@@ -48,11 +48,11 @@ function addPopupCallback({ place_name, place_link }) {
 }
 
 // Функция сохранения данных из профиля
-function editPopupCallback(formData) {
+function editPopupCallback({ input_name, input_description }) {
   // Задаём значения из формы с помощью метода setUserInfo
   userInfo.setUserInfo({
-    name: formData.input_name,
-    description: formData.input_description,
+    name: input_name,
+    description: input_description,
   });
   console.log("profile saved");
   this.close();
