@@ -23,18 +23,17 @@ import {
 const api = new Api(apiConfig);
 
 // Объект, управляющий данными профиля на странице
-const userInfo = new UserInfo(
-  profileSelectors.name,
-  profileSelectors.description
-);
+const userInfo = new UserInfo(profileSelectors);
 
 // Задаём данные профиля из API
-api.getUserInfo().then((data) =>
+api.getUserInfo().then((data) => {
+  // Задаём информацию пользователя на странице из загруженных данных
   userInfo.setUserInfo({
     name: data.name,
     description: data.about,
-  })
-);
+    avatar: data.avatar,
+  });
+});
 
 // Блок поп-апов
 // -------------

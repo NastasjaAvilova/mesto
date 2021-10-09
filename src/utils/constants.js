@@ -14,8 +14,9 @@ export const formElements = {
 
 // Селекторы данных профиля
 export const profileSelectors = {
-  name: ".profile__name",
-  description: ".profile__description",
+  nameSelector: ".profile__name",
+  descriptionSelector: ".profile__description",
+  avatarSelector: ".profile__avatar",
 };
 
 // Поп-апы

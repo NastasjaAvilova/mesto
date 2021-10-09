@@ -19,7 +19,9 @@ export default class Api {
     });
   }
 
+  //Создаём метод для добавление карточек с сервера
   getInitialCards() {
+    // Получает данные карточек от API
     return fetch(this._baseUrl + "cards", this._config).then((res) => {
       if (res.ok) {
         return res.json();
