@@ -24,15 +24,19 @@ const api = new Api(apiConfig);
 // Объект, управляющий данными профиля на странице
 const userInfo = new UserInfo(profileSelectors);
 
-// Задаём данные профиля из API
-api.getUserInfo().then((data) => {
-  // Задаём информацию пользователя на странице из загруженных данных
-  userInfo.setUserInfo({
-    name: data.name,
-    description: data.about,
-    avatar: data.avatar,
+function refreshUserInfo() {
+  // Загружаем данные профиля из API
+  api.getUserInfo().then((data) => {
+    // Задаём информацию пользователя на странице из загруженных данных
+    userInfo.setUserInfo({
+      name: data.name,
+      description: data.about,
+      avatar: data.avatar,
+    });
   });
-});
+}
+
+refreshUserInfo();
 
 // Блок поп-апов
 // -------------
@@ -49,11 +53,20 @@ function addPopupCallback({ place_name, place_link }) {
 // Функция сохранения данных из профиля
 function editPopupCallback({ input_name, input_description }) {
   // Задаём значения из формы с помощью метода setUserInfo
-  userInfo.setUserInfo({
-    name: input_name,
-    description: input_description,
-  });
+  // userInfo.setUserInfo({
+  //   name: input_name,
+  //   description: input_description,
+  // });
+
+  // Изменяем данные профиля в API
+  api
+    .setUserInfo({ name: input_name, about: input_description })
+    .then((res) => console.log(res));
   console.log("profile saved");
+
+  // Обновляем данные пользователя на странице
+  refreshUserInfo();
+
   this.close();
 }
 
