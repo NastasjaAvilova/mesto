@@ -7,6 +7,7 @@ import Section from "../scripts/components/Section.js";
 import PopupWithImage from "../scripts/components/PopupWithImage.js";
 import PopupWithForm from "../scripts/components/PopupWithForm.js";
 import UserInfo from "../scripts/components/UserInfo.js";
+import Api from "../scripts/components/Api.js";
 import {
   editButton,
   cardTemplateId,
@@ -15,12 +16,24 @@ import {
   formConfig,
   profileSelectors,
   popupSelectors,
+  apiConfig,
 } from "../utils/constants.js";
+
+// Создаём объект API из конфигурации
+const api = new Api(apiConfig);
 
 // Объект, управляющий данными профиля на странице
 const userInfo = new UserInfo(
   profileSelectors.name,
   profileSelectors.description
+);
+
+// Задаём данные профиля из API
+api.getUserInfo().then((data) =>
+  userInfo.setUserInfo({
+    name: data.name,
+    description: data.about,
+  })
 );
 
 // Блок поп-апов
@@ -118,3 +131,11 @@ editButton.addEventListener("click", () => {
   // Открываем поп-ап
   editPopup.open();
 });
+
+addButton.addEventListener("click", () => {
+  // cardValidator._toggleButtonState();
+  cardValidator.resetValidation();
+  addPopup.open();
+});
+
+// console.log(api.getUserInfo());
