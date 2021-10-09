@@ -101,14 +101,41 @@ function cardRenderer(data) {
   return card.createCard();
 }
 
+// let a = new Array();
+// api.getInitialCards().then((res) => {
+//   console.log(res);
+//   a.push(res);
+//   console.log(a);
+// });
+
+// console.log(a);
+
+// api.getInitialCards().then((res) => {
+//   elementsSection = new Section(
+//     {
+//       items: res,
+//       renderer: cardRenderer,
+//     },
+//     ".elements"
+//   );
+// });
+
 // Секция с карточками
 const elementsSection = new Section(
   {
-    items: initialCards,
     renderer: cardRenderer,
   },
   ".elements"
 );
+
+// Подтягиваем из api карточки для секции
+api.getInitialCards().then((res) => {
+  console.log(res);
+  // Для каждого объекта с данными добавляем элемент в секцию
+  res.forEach((cardData) => {
+    elementsSection.add(cardData);
+  });
+});
 
 // Блок поведения кнопок
 // ---------------------

@@ -22,7 +22,6 @@ export default class Api {
   getInitialCards() {
     return fetch(this._baseUrl + "cards", this._config).then((res) => {
       if (res.ok) {
-        console.log(res);
         return res.json();
       }
 

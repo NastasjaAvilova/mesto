@@ -2,7 +2,9 @@ export default class Section {
   constructor({ items, renderer }, selector) {
     this._section = document.querySelector(selector);
     this._renderer = renderer;
-    this._items = items;
+
+    // Если нет исходных элементов, то их у нас пустой массив
+    items ? (this._items = items) : (this._items = []);
 
     this.renderElements();
   }

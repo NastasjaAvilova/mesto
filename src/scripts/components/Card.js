@@ -11,6 +11,8 @@ export default class Card {
     this._image = this._card.querySelector(".elements__image");
     // Кнопка лайка
     this._likeButton = this._card.querySelector(".elements__like");
+    // Счётчик лайков
+    this._likeCounter = this._card.querySelector(".elements__like-counter");
     // Запоминаем коллбэк для клика по карточке
     this._cardClickHandler = handleCardClick;
 
@@ -19,11 +21,12 @@ export default class Card {
     this._setEventListeners();
   }
 
-  _fillCard({ name, link }) {
-    // Задаём новое наполнение
+  _fillCard({ name, link, likes }) {
+    // Задаём первичное наполнение
     this._card.querySelector(".elements__title").textContent = name;
     this._image.setAttribute("src", link); // img src
     this._image.setAttribute("alt", name);
+    this._likeCounter.textContent = likes.length;
   }
 
   _setEventListeners() {
