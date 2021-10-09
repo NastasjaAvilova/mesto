@@ -1,6 +1,5 @@
 import "./index.css";
 
-import initialCards from "../utils/initial-cards.js";
 import FormValidator from "../scripts/components/FormValidator.js";
 import Card from "../scripts/components/Card.js";
 import Section from "../scripts/components/Section.js";
