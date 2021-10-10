@@ -5,6 +5,7 @@ import Card from "../scripts/components/Card.js";
 import Section from "../scripts/components/Section.js";
 import PopupWithImage from "../scripts/components/PopupWithImage.js";
 import PopupWithForm from "../scripts/components/PopupWithForm.js";
+import PopupWithConfirmation from "../scripts/components/PopupWithConfirmation.js";
 import UserInfo from "../scripts/components/UserInfo.js";
 import Api from "../scripts/components/Api.js";
 import {
@@ -24,48 +25,61 @@ const api = new Api(apiConfig);
 // Объект, управляющий данными профиля на странице
 const userInfo = new UserInfo(profileSelectors);
 
-function refreshUserInfo() {
-  // Загружаем данные профиля из API
-  api.getUserInfo().then((data) => {
-    // Задаём информацию пользователя на странице из загруженных данных
-    userInfo.setUserInfo({
-      name: data.name,
-      description: data.about,
-      avatar: data.avatar,
-    });
+// Обновляет данные пользователя на странице из промиса getUserInfo
+function setUserInfo({ name, about, _id }) {
+  userInfo.setUserInfo({
+    name: name,
+    description: about,
+    id: _id,
   });
 }
 
-refreshUserInfo();
+// Добавляет карточку из промиса в секцию
+function addCardFromResponse(cardData) {
+  elementsSection.add(cardData);
+}
+
+// Секция с карточками
+const elementsSection = new Section(
+  {
+    renderer: cardRenderer,
+  },
+  ".elements"
+);
+
+// Загружаем данные профиля из API
+api.getUserInfo().then(setUserInfo);
+// Подтягиваем из api карточки для секции
+api.getInitialCards().then((res) => {
+  console.log(res);
+  // Для каждого объекта с данными добавляем элемент в секцию
+  res.forEach((cardData) => {
+    elementsSection.add(cardData);
+  });
+});
 
 // Блок поп-апов
 // -------------
 // Функция добавления картинки из поп-апа
 function addPopupCallback({ place_name, place_link }) {
-  // Добавляем карточку в секцию с карточками (внутри секции отрабатывает рендерер)
-  elementsSection.add({
-    name: place_name,
-    link: place_link,
-  });
+  // Отправляем запрос на добавление карточки и добавляем её в DOM после ответа сервера
+  api
+    .addCard({ name: place_name, link: place_link })
+    .then(addCardFromResponse)
+    .catch((rej) => console.log(rej));
+  // Закрываем поп-ап
   this.close();
 }
 
 // Функция сохранения данных из профиля
 function editPopupCallback({ input_name, input_description }) {
-  // Задаём значения из формы с помощью метода setUserInfo
-  // userInfo.setUserInfo({
-  //   name: input_name,
-  //   description: input_description,
-  // });
-
+  // console.log(editPopup._getInputValues());
   // Изменяем данные профиля в API
   api
-    .setUserInfo({ name: input_name, about: input_description })
-    .then((res) => console.log(res));
+    .setUserInfo({ name: input_name, about: input_description }) // Отправляем запрос на изменения профиля
+    .then(setUserInfo)
+    .catch((rej) => console.log(rej)); // Обновляем данные пользователя на странице из ответа PATCH-запроса
   console.log("profile saved");
-
-  // Обновляем данные пользователя на странице
-  refreshUserInfo();
 
   this.close();
 }
@@ -83,6 +97,15 @@ addPopup.setEventListeners();
 // Поп-ап с большой картинкой
 const viewPopup = new PopupWithImage(popupSelectors.popupView);
 viewPopup.setEventListeners();
+
+const confirmationPopup = new PopupWithConfirmation(
+  popupSelectors.popupConfirmation
+);
+confirmationPopup.setEventListeners();
+
+// confirmationPopup.open(() => {
+//   alert("ахахахахахахахахахахха");
+// });
 
 // Коллбэк увеличения картинки для клика по карточкам
 function expandImage({ link, name }) {
@@ -107,51 +130,37 @@ profileValidator.enableValidation();
 // -----------
 // Рендерер для секции с карточками
 function cardRenderer(data) {
-  // data = {name, link}
-  const card = new Card(data, cardTemplateId, expandImage);
+  const card = new Card(
+    data,
+    cardTemplateId,
+    expandImage,
+    deleteCardWithConfirmation,
+    cardLikeCallback
+  );
+  // if (Array.contains(userInfo.getUserInfo().id)
+
   return card.createCard();
 }
 
-// let a = new Array();
-// api.getInitialCards().then((res) => {
-//   console.log(res);
-//   a.push(res);
-//   console.log(a);
-// });
+function cardLikeCallback({ id, cardElement }) {
+  // Если среди лайкнувших есть наш айди, то карточку помечаем как лайкнутую
+}
 
-// console.log(a);
-
-// api.getInitialCards().then((res) => {
-//   elementsSection = new Section(
-//     {
-//       items: res,
-//       renderer: cardRenderer,
-//     },
-//     ".elements"
-//   );
-// });
-
-// Секция с карточками
-const elementsSection = new Section(
-  {
-    renderer: cardRenderer,
-  },
-  ".elements"
-);
-
-// Подтягиваем из api карточки для секции
-api.getInitialCards().then((res) => {
-  console.log(res);
-  // Для каждого объекта с данными добавляем элемент в секцию
-  res.forEach((cardData) => {
-    elementsSection.add(cardData);
-  });
-});
+// Функция удаления карточки. Используется как deleteHandler для класса Card.
+function deleteCardWithConfirmation({ id, cardElement }) {
+  function deleteCard() {
+    api
+      .deleteCard(id)
+      .then(() => cardElement.remove())
+      .catch((rej) => alert(rej));
+  }
+  // Открываем диалоговое окно для подтверждения удаления
+  confirmationPopup.open(deleteCard);
+}
 
 // Блок поведения кнопок
 // ---------------------
 addButton.addEventListener("click", () => {
-  // cardValidator._toggleButtonState();
   cardValidator.resetValidation();
   addPopup.open();
 });
@@ -176,4 +185,7 @@ addButton.addEventListener("click", () => {
   addPopup.open();
 });
 
-// console.log(api.getUserInfo());
+elementsSection.add({
+  name: "123",
+  link: "https://bez-makiyazha.ru/wp-content/uploads/2019/07/03_STPeA5g.jpg",
+});

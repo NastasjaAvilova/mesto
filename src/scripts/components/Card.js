@@ -1,7 +1,14 @@
 // Создайте класс Card, который создаёт карточку с текстом и ссылкой на изображение:
 export default class Card {
   // принимает в конструктор её данные и селектор её template-элемента;
-  constructor(data, templateIdSelector, handleCardClick) {
+  constructor(
+    data,
+    templateIdSelector,
+    handleCardClick,
+    handleDelete,
+    likeCallback
+  ) {
+    this._id = data._id;
     // Находим в DOM шаблон с заданным селектором и клонируем его в объект
     this._card = document
       .querySelector(templateIdSelector)
@@ -15,6 +22,10 @@ export default class Card {
     this._likeCounter = this._card.querySelector(".elements__like-counter");
     // Запоминаем коллбэк для клика по карточке
     this._cardClickHandler = handleCardClick;
+    // Коллбэк удаления
+    this._deleteHandler = handleDelete;
+    // Коллбэк лайка
+    this._likeCallback = likeCallback;
 
     // Вызываем приватные методы
     this._fillCard(data);
@@ -26,7 +37,7 @@ export default class Card {
     this._card.querySelector(".elements__title").textContent = name;
     this._image.setAttribute("src", link); // img src
     this._image.setAttribute("alt", name);
-    this._likeCounter.textContent = likes.length;
+    this._likeCounter.textContent = likes ? likes.length : 0;
   }
 
   _setEventListeners() {
@@ -41,23 +52,27 @@ export default class Card {
     // Удаление
     this._card
       .querySelector(".elements__trash")
-      .addEventListener("click", () => this._removeElement());
+      .addEventListener("click", () => {
+        this._deleteHandler(this._getCardInfo());
+      });
     // Лайк
-    this._likeButton.addEventListener("click", () => this._toggleLike());
+    this._likeButton.addEventListener("click", () => {
+      this._likeCallback(this._getCardInfo());
+    });
   }
 
-  _toggleLike() {
+  setLikeState(liked = true) {
     // Найти лайк в нашей карточке и переключить класс elements__like_active
-    this._likeButton.classList.toggle("elements__like_active");
-  }
-
-  _removeElement() {
-    // Удаляет карточку
-    this._card.remove();
-    console.log("card removed");
+    liked
+      ? this._likeButton.classList.add("elements__like_active")
+      : this._likeButton.classList.remove("elements__like_active");
   }
 
   createCard() {
     return this._card;
+  }
+
+  _getCardInfo() {
+    return { id: this._id, cardElement: this._card };
   }
 }
