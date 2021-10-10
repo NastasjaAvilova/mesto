@@ -34,11 +34,6 @@ function setUserInfo({ name, about, _id }) {
   });
 }
 
-// Добавляет карточку из промиса в секцию
-function addCardFromResponse(cardData) {
-  elementsSection.add(cardData);
-}
-
 // Секция с карточками
 const elementsSection = new Section(
   {
@@ -62,10 +57,14 @@ api.getInitialCards().then((res) => {
 // -------------
 // Функция добавления картинки из поп-апа
 function addPopupCallback({ place_name, place_link }) {
+  // Добавляет карточку из промиса в секцию
+  function addCardFromResponse(cardData) {
+    elementsSection.add(cardData, true);
+  }
   // Отправляем запрос на добавление карточки и добавляем её в DOM после ответа сервера
   api
     .addCard({ name: place_name, link: place_link })
-    .then(addCardFromResponse)
+    .then(addCardFromResponse) // Рендерим карточку и добавляем в DOM
     .catch((rej) => console.log(rej));
   // Закрываем поп-ап
   this.close();
@@ -137,14 +136,14 @@ function cardRenderer(data) {
     deleteCardWithConfirmation,
     cardLikeCallback
   );
+  // Если среди лайкнувших есть наш айди, то карточку помечаем как лайкнутую
+
   // if (Array.contains(userInfo.getUserInfo().id)
 
   return card.createCard();
 }
 
-function cardLikeCallback({ id, cardElement }) {
-  // Если среди лайкнувших есть наш айди, то карточку помечаем как лайкнутую
-}
+function cardLikeCallback({ id, cardElement }) {}
 
 // Функция удаления карточки. Используется как deleteHandler для класса Card.
 function deleteCardWithConfirmation({ id, cardElement }) {
@@ -183,9 +182,4 @@ addButton.addEventListener("click", () => {
   // cardValidator._toggleButtonState();
   cardValidator.resetValidation();
   addPopup.open();
-});
-
-elementsSection.add({
-  name: "123",
-  link: "https://bez-makiyazha.ru/wp-content/uploads/2019/07/03_STPeA5g.jpg",
 });

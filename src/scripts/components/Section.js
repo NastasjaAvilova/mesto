@@ -16,12 +16,12 @@ export default class Section {
     });
   }
 
-  add(data, append) {
+  add(data, prepend) {
     // создаём DOM-элемент из объекта с данными
     const element = this._renderer(data);
-    // Добавление в конец
-    if (append) this._section.append(element);
     // Добавление в начало
-    else this._section.prepend(element);
+    if (prepend) this._section.prepend(element);
+    // Добавление в конец
+    else this._section.append(element);
   }
 }

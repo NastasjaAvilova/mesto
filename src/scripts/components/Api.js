@@ -7,6 +7,7 @@ export default class Api {
     console.log("i am api. my config is", this._config);
   }
 
+  // Метод для проверки ответа от сервера. Возвращает JSON-промис
   static checkResponse(res) {
     if (res.ok) {
       return res.json();
@@ -18,27 +19,15 @@ export default class Api {
 
   getUserInfo() {
     // Получает данные пользователя от API
-    return fetch(this._baseUrl + "users/me", this._config).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      // если ошибка, отклоняем промис
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    return fetch(this._baseUrl + "users/me", this._config).then(
+      Api.checkResponse
+    );
   }
 
   //Создаём метод для добавление карточек с сервера
   getInitialCards() {
     // Получает данные карточек от API
-    return fetch(this._baseUrl + "cards", this._config).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      // если ошибка, отклоняем промис
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    return fetch(this._baseUrl + "cards", this._config).then(Api.checkResponse);
   }
 
   // Обновляет данные пользователя на сервере
@@ -56,15 +45,7 @@ export default class Api {
         }),
       })
       // И если запрос успешно выполнился возвращаем json promise
-    ).then((res) => {
-      console.log("response is", res);
-      if (res.ok) {
-        return res.json();
-      }
-
-      // если ошибка, отклоняем промис
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    ).then(Api.checkResponse);
   }
 
   addCard({ name, link }) {
@@ -80,15 +61,7 @@ export default class Api {
         }),
       })
     )
-      .then((res) => {
-        console.log("response is", res);
-        if (res.ok) {
-          return res.json();
-        }
-
-        // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then(Api.checkResponse)
       .catch((res) => console.log(res));
   }
 
@@ -114,5 +87,3 @@ export default class Api {
     ).then(Api.checkResponse);
   }
 }
-
-// другие методы работы с API
