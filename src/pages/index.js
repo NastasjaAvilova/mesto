@@ -22,7 +22,10 @@ import {
 // Создаём объект API из конфигурации
 const api = new Api(apiConfig);
 
-const avatarPopup = new PopupWithForm(popupSelectors.popupAvatar, setAvatar);
+const avatarPopup = new PopupWithForm(
+  popupSelectors.popupAvatar,
+  editAvatarCallback
+);
 avatarPopup.setEventListeners();
 
 // avatarPopup.open();
@@ -34,12 +37,13 @@ const userInfo = new UserInfo(
 userInfo.setEventListeners();
 
 // Обновляет данные пользователя на странице из промиса getUserInfo
-function setUserInfo({ name, about, _id }) {
+function setUserInfo({ name, about, _id, avatar }) {
   userInfo.setUserInfo({
     name: name,
     description: about,
     id: _id,
   });
+  userInfo.setAvatar(avatar);
 }
 
 // Секция с карточками
@@ -55,13 +59,22 @@ api.getUserInfo().then(setUserInfo);
 
 // Подтягиваем из api карточки для секции
 api.getInitialCards().then((res) => {
-  console.log(res);
-
   // Для каждого объекта с данными добавляем элемент в секцию
   res.forEach((cardData) => {
     elementsSection.add(cardData);
   });
 });
+
+// Коллбэк для сабмита. В него передаётся объект со значениями полей формы
+function editAvatarCallback({ avatar_link }) {
+  // this.renderLoading(true);
+  api
+    .setAvatar(avatar_link)
+    .then((res) => userInfo.setAvatar(res.avatar))
+    .finally(() => {
+      // this.renderLoading(false);
+    });
+}
 
 // Блок поп-апов
 // -------------
@@ -76,8 +89,6 @@ function addPopupCallback({ place_name, place_link }) {
     .addCard({ name: place_name, link: place_link })
     .then(addCardFromResponse) // Рендерим карточку и добавляем в DOM
     .catch((rej) => console.log(rej));
-  // Закрываем поп-ап
-  this.close();
 }
 
 // Функция сохранения данных из профиля
@@ -90,7 +101,7 @@ function editPopupCallback({ input_name, input_description }) {
     .catch((rej) => console.log(rej)); // Обновляем данные пользователя на странице из ответа PATCH-запроса
   console.log("profile saved");
 
-  this.close();
+  // this.close();
 }
 
 // Объявляем поп-апы
@@ -111,10 +122,6 @@ const confirmationPopup = new PopupWithConfirmation(
   popupSelectors.popupConfirmation
 );
 confirmationPopup.setEventListeners();
-
-function setAvatar({ avatar_link }) {
-  api.setAvatar(link);
-}
 
 // Коллбэк увеличения картинки для клика по карточкам
 function expandImage({ link, name }) {

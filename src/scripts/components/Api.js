@@ -89,8 +89,11 @@ export default class Api {
 
   setAvatar(link) {
     return fetch(
-      this._baseUrl + "users/me/avatar",
-      Object.assign(this._config, { method: "PATCH" })
+      this._baseUrl + "users/me/avatar/",
+      Object.assign(this._config, {
+        method: "PATCH",
+        body: JSON.stringify({ avatar: link }),
+      })
     ).then(Api.checkResponse);
   }
 }

@@ -4,7 +4,7 @@ export default class Popup {
   constructor(selector) {
     this._popup = document.querySelector(selector);
     // Коллбэк закрытия по Escape
-    this._escapeHandler = this._handleEscClose.bind(this);
+    this._escapeAction = this._closeOnEsc.bind(this);
   }
 
   open() {
@@ -12,7 +12,7 @@ export default class Popup {
     this._popup.classList.add(openClass);
 
     // Создаём обработчик нажатия Escape для закрытия текущего поп-апа
-    document.addEventListener("keydown", this._escapeHandler);
+    document.addEventListener("keydown", this._escapeAction);
 
     console.log("popup opened");
   }
@@ -23,12 +23,12 @@ export default class Popup {
 
     // Удаляем обработчик события, закрывающий поп-ап
 
-    document.removeEventListener("keydown", this._escapeHandler);
+    document.removeEventListener("keydown", this._escapeAction);
 
     console.log("popup closed");
   }
 
-  _handleEscClose(evt) {
+  _closeOnEsc(evt) {
     if (evt.key === "Escape") this.close();
   }
 
