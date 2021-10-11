@@ -22,8 +22,16 @@ import {
 // Создаём объект API из конфигурации
 const api = new Api(apiConfig);
 
+const avatarPopup = new PopupWithForm(popupSelectors.popupAvatar, setAvatar);
+avatarPopup.setEventListeners();
+
+// avatarPopup.open();
 // Объект, управляющий данными профиля на странице
-const userInfo = new UserInfo(profileSelectors);
+const userInfo = new UserInfo(
+  profileSelectors,
+  avatarPopup.open.bind(avatarPopup) // При нажатии на аватар открывается поп-ап
+);
+userInfo.setEventListeners();
 
 // Обновляет данные пользователя на странице из промиса getUserInfo
 function setUserInfo({ name, about, _id }) {
@@ -44,9 +52,11 @@ const elementsSection = new Section(
 
 // Загружаем данные профиля из API
 api.getUserInfo().then(setUserInfo);
+
 // Подтягиваем из api карточки для секции
 api.getInitialCards().then((res) => {
   console.log(res);
+
   // Для каждого объекта с данными добавляем элемент в секцию
   res.forEach((cardData) => {
     elementsSection.add(cardData);
@@ -102,9 +112,9 @@ const confirmationPopup = new PopupWithConfirmation(
 );
 confirmationPopup.setEventListeners();
 
-// confirmationPopup.open(() => {
-//   alert("ахахахахахахахахахахха");
-// });
+function setAvatar({ avatar_link }) {
+  api.setAvatar(link);
+}
 
 // Коллбэк увеличения картинки для клика по карточкам
 function expandImage({ link, name }) {
@@ -125,6 +135,12 @@ const profileValidator = new FormValidator(
 );
 profileValidator.enableValidation();
 
+const avatarValidator = new FormValidator(
+  formConfig,
+  formElements.avatarEditForm
+);
+avatarValidator.enableValidation();
+
 // Блок секций
 // -----------
 // Рендерер для секции с карточками
@@ -137,13 +153,31 @@ function cardRenderer(data) {
     cardLikeCallback
   );
   // Если среди лайкнувших есть наш айди, то карточку помечаем как лайкнутую
-
-  // if (Array.contains(userInfo.getUserInfo().id)
+  if (isLikedByUser(card)) card.setLikeState(true);
 
   return card.createCard();
 }
 
-function cardLikeCallback({ id, cardElement }) {}
+function isLikedByUser(card) {
+  return card.getLikers().includes(userInfo.getUserInfo().id);
+}
+
+// Коллбэк постановки лайка
+function cardLikeCallback({ id }) {
+  // if (isLikedByUser(this)) {
+  //   api.likeCard(id, false);
+  // } else api.likeCard(id, true);
+
+  // Лайкать или нет, зависит от того, лайкнул ли наш юзер
+  const toLike = !isLikedByUser(this);
+  // Поставим лайк карточке с заданным id, если она не лайкнута пользователем
+  api.likeCard(id, toLike).then((res) => {
+    // Задаём стиль "лайкнутой кнопки"
+    this.setLikeState(toLike);
+    // Задаём новый массив лайков и обновляем счётчик на карточке
+    this.setLikers(res.likes);
+  });
+}
 
 // Функция удаления карточки. Используется как deleteHandler для класса Card.
 function deleteCardWithConfirmation({ id, cardElement }) {

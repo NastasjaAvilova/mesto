@@ -1,8 +1,13 @@
 export default class UserInfo {
-  constructor({ nameSelector, descriptionSelector, avatarSelector }) {
+  constructor(
+    { nameSelector, descriptionSelector, avatarSelector, avatarEditSelector },
+    avatarEditAction
+  ) {
     this._name = document.querySelector(nameSelector);
     this._description = document.querySelector(descriptionSelector);
     this._avatar = document.querySelector(avatarSelector);
+    this._avatarEditElement = this._avatar.querySelector(avatarEditSelector);
+    this._avatarEditAction = avatarEditAction;
   }
 
   getUserInfo() {
@@ -22,5 +27,10 @@ export default class UserInfo {
   setAvatar(avatarUrl) {
     this._avatar.style.backgroundImage = `url('${avatarUrl}')`;
     console.log(this._avatar.style.backgroundImage);
+  }
+
+  setEventListeners() {
+    // Задаём обработчик нажатию на аватар
+    this._avatarEditElement.addEventListener("click", this._avatarEditAction);
   }
 }

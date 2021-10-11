@@ -79,11 +79,18 @@ export default class Api {
 
   likeCard(id, like = true) {
     return fetch(
-      //Обращаемя к базовому URL и прибавляем адрес и id удаляемой карточки
+      //Обращаемся к базовому URL и прибавляем адрес и id удаляемой карточки
       this._baseUrl + "cards/likes/" + id,
       Object.assign(this._config, {
         method: like ? "PUT" : "DELETE",
       })
+    ).then(Api.checkResponse);
+  }
+
+  setAvatar(link) {
+    return fetch(
+      this._baseUrl + "users/me/avatar",
+      Object.assign(this._config, { method: "PATCH" })
     ).then(Api.checkResponse);
   }
 }

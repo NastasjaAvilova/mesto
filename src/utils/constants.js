@@ -10,6 +10,7 @@ export const addButton = document.querySelector(".profile__add-button");
 export const formElements = {
   profileEditForm: document.querySelector('[name="profile-edit-form"]'),
   cardAddForm: document.querySelector('[name="card-add-form"]'),
+  avatarEditForm: document.querySelector('[name="avatar-form"]'),
 };
 
 // Селекторы данных профиля
@@ -17,6 +18,7 @@ export const profileSelectors = {
   nameSelector: ".profile__name",
   descriptionSelector: ".profile__description",
   avatarSelector: ".profile__avatar",
+  avatarEditSelector: ".profile__avatar-edit",
 };
 
 // Поп-апы

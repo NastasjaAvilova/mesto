@@ -18,6 +18,8 @@ export default class Card {
     this._image = this._card.querySelector(".elements__image");
     // Кнопка лайка
     this._likeButton = this._card.querySelector(".elements__like");
+    // Массив лайков
+    this._likes = data.likes;
     // Счётчик лайков
     this._likeCounter = this._card.querySelector(".elements__like-counter");
     // Запоминаем коллбэк для клика по карточке
@@ -32,12 +34,17 @@ export default class Card {
     this._setEventListeners();
   }
 
-  _fillCard({ name, link, likes }) {
+  _fillCard({ name, link }) {
     // Задаём первичное наполнение
     this._card.querySelector(".elements__title").textContent = name;
     this._image.setAttribute("src", link); // img src
     this._image.setAttribute("alt", name);
-    this._likeCounter.textContent = likes ? likes.length : 0;
+    this._updateLikeCounter();
+  }
+
+  _updateLikeCounter() {
+    // Обновляет счётчик лайков в зависимости от массива лайков
+    this._likeCounter.textContent = this._likes.length;
   }
 
   _setEventListeners() {
@@ -66,6 +73,17 @@ export default class Card {
     liked
       ? this._likeButton.classList.add("elements__like_active")
       : this._likeButton.classList.remove("elements__like_active");
+  }
+
+  getLikers() {
+    // Возвращает массив id лайкнувших пользователей
+    return this._likes.map((user) => user._id);
+  }
+
+  setLikers(likesArr) {
+    // Задаёт массив лайкнувших пользователей
+    this._likes = likesArr;
+    this._updateLikeCounter();
   }
 
   createCard() {
