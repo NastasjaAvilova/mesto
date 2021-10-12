@@ -71,9 +71,7 @@ function editAvatarCallback({ avatar_link }) {
   api
     .setAvatar(avatar_link)
     .then((res) => userInfo.setAvatar(res.avatar))
-    .finally(() => {
-      // this.renderLoading(false);
-    });
+    .catch(logError);
 }
 
 // Блок поп-апов
@@ -88,7 +86,12 @@ function addPopupCallback({ place_name, place_link }) {
   api
     .addCard({ name: place_name, link: place_link })
     .then(addCardFromResponse) // Рендерим карточку и добавляем в DOM
-    .catch((rej) => console.log(rej));
+    .catch(logError);
+}
+
+// Выводит ошибку в консоль, используется в блоке catch
+function logError(rej) {
+  console.log(rej);
 }
 
 // Функция сохранения данных из профиля
@@ -98,7 +101,7 @@ function editPopupCallback({ input_name, input_description }) {
   api
     .setUserInfo({ name: input_name, about: input_description }) // Отправляем запрос на изменения профиля
     .then(setUserInfo)
-    .catch((rej) => console.log(rej)); // Обновляем данные пользователя на странице из ответа PATCH-запроса
+    .catch(logError); // Обновляем данные пользователя на странице из ответа PATCH-запроса
   console.log("profile saved");
 
   // this.close();
