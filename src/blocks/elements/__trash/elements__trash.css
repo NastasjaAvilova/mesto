@@ -1,4 +1,5 @@
 .elements__trash {
+  display: none;
   position: absolute;
   background-image: url(../../../images/Trash_button.svg);
   width: 18px;

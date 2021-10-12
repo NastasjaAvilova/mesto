@@ -155,7 +155,7 @@ avatarValidator.enableValidation();
 // -----------
 // Рендерер для секции с карточками
 function cardRenderer(data) {
-  const card = new Card(
+  const ourCard = new Card(
     data,
     cardTemplateId,
     expandImage,
@@ -163,9 +163,14 @@ function cardRenderer(data) {
     cardLikeCallback
   );
   // Если среди лайкнувших есть наш айди, то карточку помечаем как лайкнутую
-  if (isLikedByUser(card)) card.setLikeState(true);
+  if (isLikedByUser(ourCard)) ourCard.setLikeState(true);
+  // Если id создавшего карточку совпадает с id пользователя то у помойки display: block
+  if (ourCard.isOwnedBy(userInfo.getUserInfo().id)) {
+    console.log("this is our card");
+    ourCard.enableDeletion();
+  }
 
-  return card.createCard();
+  return ourCard.createCard();
 }
 
 function isLikedByUser(card) {
@@ -195,7 +200,8 @@ function deleteCardWithConfirmation({ id, cardElement }) {
     api
       .deleteCard(id)
       .then(() => cardElement.remove())
-      .catch((rej) => alert(rej));
+      .catch(logError)
+      .finally(() => this.close());
   }
   // Открываем диалоговое окно для подтверждения удаления
   confirmationPopup.open(deleteCard);

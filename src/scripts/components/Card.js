@@ -24,10 +24,13 @@ export default class Card {
     this._likeCounter = this._card.querySelector(".elements__like-counter");
     // Запоминаем коллбэк для клика по карточке
     this._cardClickHandler = handleCardClick;
+    this._trashButton = this._card.querySelector(".elements__trash");
     // Коллбэк удаления
     this._deleteHandler = handleDelete;
     // Коллбэк лайка
     this._likeCallback = likeCallback;
+    // Определим ID владельца карточки
+    this._ownerId = data.owner._id;
 
     // Вызываем приватные методы
     this._fillCard(data);
@@ -56,12 +59,6 @@ export default class Card {
         name: this._image.alt,
       })
     );
-    // Удаление
-    this._card
-      .querySelector(".elements__trash")
-      .addEventListener("click", () => {
-        this._deleteHandler(this._getCardInfo());
-      });
     // Лайк
     this._likeButton.addEventListener("click", () => {
       this._likeCallback(this._getCardInfo());
@@ -92,5 +89,17 @@ export default class Card {
 
   _getCardInfo() {
     return { id: this._id, cardElement: this._card };
+  }
+
+  isOwnedBy(userId) {
+    return userId === this._ownerId;
+  }
+
+  // Даёт возможность удалить карточку
+  enableDeletion() {
+    this._trashButton.addEventListener("click", () => {
+      this._deleteHandler(this._getCardInfo());
+    });
+    this._trashButton.classList.add("elements__trash_visible");
   }
 }

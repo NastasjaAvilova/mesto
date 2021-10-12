@@ -9,23 +9,14 @@ export default class PopupWithConfirmation extends Popup {
   // Открывает диалоговое окно для подтверждения выполнения коллбэка
   open(action) {
     // Запоминаем коллбэк в объекте
-    this._callback = (() => {
-      action();
-      this.close();
-    }).bind(this);
-    // Даём задание листенеру выполнить коллбэк при нажатии на кнопку и закрыть окно
-    this._button.addEventListener("click", this._callback);
-
+    this._callback = action;
     // Открываем окно
     super.open();
   }
 
-  close() {
-    // Наследуем функцию клоуз
-    super.close();
-    // Снимаем обработчик с кнопки
-    this._button.removeEventListener("click", this._callback);
-    // Удаляем коллбэк из объекта
-    delete this._callback;
+  setEventListeners() {
+    super.setEventListeners();
+    // Даём задание листенеру выполнить коллбэк при нажатии на кнопку и закрыть окно
+    this._button.addEventListener("click", () => this._callback());
   }
 }
