@@ -60,9 +60,7 @@ export default class Api {
           link: link,
         }),
       })
-    )
-      .then(Api.checkResponse)
-      .catch((res) => console.log(res));
+    ).then(Api.checkResponse);
   }
 
   deleteCard(id) {

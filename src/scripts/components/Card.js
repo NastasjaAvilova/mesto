@@ -44,7 +44,6 @@ export default class Card {
 
   _updateLikeCounter() {
     // Обновляет счётчик лайков в зависимости от массива лайков
-    console.log(this._likes);
     this._likeCounter.textContent = this._likes.length;
   }
 
