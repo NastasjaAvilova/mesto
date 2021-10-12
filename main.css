@@ -5,7 +5,8 @@
 .header__logo{margin-bottom:41px;max-width:142px}@media screen and (max-width:400px){.header__logo{margin-bottom:32px;margin-left:27px;margin-top:28px;max-width:103px}}
 .content{background:#000;display:flex;flex-direction:column;margin-left:auto;margin-right:auto;max-width:880px}@media screen and (max-width:940px){.content{max-width:98vw}}@media screen and (max-width:400px){.content{max-width:282px}}
 .profile{align-items:center;display:flex;flex-direction:row;justify-content:space-between;margin-bottom:50px;margin-top:40px}@media screen and (max-width:640px){.profile{flex-direction:column;margin-bottom:36px}}
-.profile__avatar{background-image:url(6163c2039d1f0eb8d7ca.jpg);border-radius:50%;height:100%;margin-right:24px;max-height:120px;max-width:120px;-o-object-fit:cover;object-fit:cover;overflow:hidden;width:100%}@media screen and (max-width:640px){.profile__avatar{margin:0}}
+.profile__avatar{align-items:center;background-position:50%;background-size:cover;border-radius:50%;display:flex;justify-content:center;margin-right:24px;min-height:120px;min-width:120px;overflow:hidden;position:relative}@media screen and (max-width:640px){.profile__avatar{margin:0}}
+.profile__avatar-edit{background-color:transparent;background-size:cover;height:100%;max-height:26px;max-width:26px;opacity:0;overflow:hidden;padding:100%;position:absolute;transition:background-color .5s ease-in-out;transition:opacity .3s ease;width:100%}.profile__avatar-edit:hover{background-color:rgba(0,0,0,.8);opacity:1}@media screen and (max-width:640px){.profile__avatar{margin:0}}
 .profile__info{display:grid;flex-direction:column;grid-template-columns:repeat(2,auto);margin-top:10px;max-width:530px}@media screen and (max-width:640px){.profile__info{margin-bottom:33px;margin-left:30px;margin-top:0}}
 .profile__name{color:#fff;font-size:42px;font-style:normal;font-weight:500;line-height:48px;margin:0;padding:0;text-overflow:ellipsis;white-space:nowrap}@media screen and (max-width:640px){.profile__name{font-size:27px;line-height:33px;margin-bottom:10px;margin-top:22px;text-align:center}}
 .profile__description{color:#fff;font-size:18px;font-style:normal;font-weight:400;line-height:22px;margin:0;overflow:hidden;padding:0;text-overflow:ellipsis;white-space:nowrap}@media screen and (max-width:640px){.profile__description{font-size:14px;line-height:17px;text-align:center}}
@@ -20,7 +21,7 @@
 .elements__like-container{border:none;display:flex;flex-direction:column;min-height:35px;min-width:22px}
 .elements__like{background-color:transparent;background-image:url(87ed371465c7a6a1cd01.svg);border:none;cursor:pointer;min-height:19px;min-width:22px;transition:opacity .3s ease}.elements__like:hover{opacity:.5}
 .elements__like_active{background-image:url(fe17a515669479b1e649.svg);border:none;cursor:pointer;min-height:19px;min-width:22px}
-.elements__like-counter{background-color:transparent;border:none;min-height:13px;min-width:10px}
+.elements__like-counter{background-color:transparent;border:none;font-size:13px;font-weight:400;line-height:16px;min-height:13px;min-width:10px;text-align:center}
 .elements__trash{background-color:transparent;background-image:url(cbc09a894bdd4c956365.svg);border:none;cursor:pointer;height:19px;position:absolute;right:15px;top:18px;transition:opacity .3s ease;width:18px}.elements__trash:hover{opacity:.6}
 .footer{margin:66px auto 60px;max-width:880px;width:100%}@media screen and (max-width:940px){.footer{max-width:95vw}}@media screen and (max-width:400px){.footer{margin:48px auto 36px;max-width:282px}}
 .footer__copyright{color:#545454;font-size:18px;font-style:normal;font-weight:400;line-height:22px;margin:0;padding:0}@media screen and (max-width:400px){.footer__copyright{font-size:14px;line-height:17px}}
@@ -39,5 +40,5 @@
 .form__input-error_visible{display:inherit}
 .form__save-button{background-color:#000;border:none;border-radius:2px;color:#fff;cursor:pointer;font-size:18px;font-style:normal;font-weight:400;height:50px;line-height:22px;margin:48px 0 0;max-width:358px;text-align:center;transition:opacity .3s ease;width:100%}.form__save-button:hover{opacity:.8}@media screen and (max-width:400px){.form__save-button{font-size:14px;height:46px;line-height:17px;margin:46px 0 0;max-width:360px}}
 .form__save-button_disabled{background-color:#fff;border:1px solid rgba(0,0,0,.15);box-shadow:rgba(0,0,0,.15);color:rgba(0,0,0,.15)}
-.form__yes-button{margin-top:10px}
+.form__save-button_margin{margin-top:10px}
 
