@@ -3,8 +3,7 @@ import Popup from "./Popup.js";
 export default class PopupWithConfirmation extends Popup {
   constructor(selector) {
     super(selector);
-    this._form = this._popup.querySelector(".form");
-    this._button = this._popup.querySelector(".form__save-button");
+    this._button = this._popup.querySelector(".popup__confirmation-button");
   }
 
   // Открывает диалоговое окно для подтверждения выполнения коллбэка
