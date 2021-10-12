@@ -11,16 +11,11 @@
   background-color: rgba(0, 0, 0, 0);
   padding: 100%;
   opacity: 0;
-  -webkit-transition: background-color 0.5s ease-in-out;
-  -moz-transition: background-color 0.5s ease-in-out;
-  -ms-transition: background-color 0.5s ease-in-out;
-  -o-transition: background-color 0.5s ease-in-out;
-  transition: background-color 0.5s ease-in-out;
-  -webkit-transition: opacity 0.3s ease;
-  -moz-transition: opacity 0.3s ease;
-  -ms-transition: opacity 0.3s ease;
-  -o-transition: opacity 0.3s ease;
-  transition: opacity 0.3s ease;
+  -webkit-transition: background-color 0.5s ease-in-out, opacity 0.3s ease;
+  -moz-transition: background-color 0.5s ease-in-out, opacity 0.3s ease;
+  -ms-transition: background-color 0.5s ease-in-out, opacity 0.3s ease;
+  -o-transition: background-color 0.5s ease-in-out, opacity 0.3s ease;
+  transition: background-color 0.5s ease-in-out, opacity 0.3s ease;
 }
 
 .profile__avatar-edit:hover {
