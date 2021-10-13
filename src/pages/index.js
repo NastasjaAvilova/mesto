@@ -30,10 +30,14 @@ avatarPopup.setEventListeners();
 
 // Объект, управляющий данными профиля на странице
 const userInfo = new UserInfo(
-  profileSelectors,
-  avatarPopup.open.bind(avatarPopup) // При нажатии на аватар открывается поп-ап
+  profileSelectors
+  // При нажатии на аватар открывается поп-ап
 );
-userInfo.setEventListeners();
+
+// При клике по кнопке редактирования аватара открывается окно редактирования аватара
+document
+  .querySelector(profileSelectors.avatarEditSelector)
+  .addEventListener("click", avatarPopup.open.bind(avatarPopup));
 
 // Обновляет данные пользователя на странице из промиса getUserInfo
 function setUserInfo({ name, about, _id, avatar }) {
@@ -46,12 +50,7 @@ function setUserInfo({ name, about, _id, avatar }) {
 }
 
 // Секция с карточками
-const elementsSection = new Section(
-  {
-    renderer: cardRenderer,
-  },
-  ".elements"
-);
+const elementsSection = new Section(cardRenderer, ".elements");
 
 // Дожидаемся ответов от сервера с данными профиля и карточками
 Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -60,7 +59,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     // Задаём данные профиля из ответа по профилю
     setUserInfo(userData);
     // Отрисовываем карточки из ответа с карточками
-    cards.forEach((cardData) => elementsSection.add(cardData));
+    elementsSection.renderElements(cards);
   })
   .catch(logError);
 
@@ -69,12 +68,12 @@ function editAvatarCallback({ avatar_link }) {
   this.renderLoading(true);
   api
     .setAvatar(avatar_link)
-    .then((res) => userInfo.setAvatar(res.avatar))
-    .catch(logError)
-    .finally(() => {
-      this.renderLoading(false);
+    .then((res) => {
+      userInfo.setAvatar(res.avatar);
       this.close();
-    });
+    })
+    .catch(logError)
+    .finally(() => this.renderLoading(false));
 }
 
 // Блок поп-апов
@@ -109,15 +108,13 @@ function editPopupCallback({ input_name, input_description }) {
   this.renderLoading(true);
   api
     .setUserInfo({ name: input_name, about: input_description }) // Отправляем запрос на изменения профиля
-    .then(setUserInfo)
-    .catch(logError)
-    .finally(() => {
-      this.renderLoading(false);
+    .then((res) => {
+      setUserInfo(res);
       this.close();
-    }); // Обновляем данные пользователя на странице из ответа PATCH-запроса
+    })
+    .catch(logError)
+    .finally(() => this.renderLoading(false)); // Обновляем данные пользователя на странице из ответа PATCH-запроса
   console.log("profile saved");
-
-  // this.close();
 }
 
 // Объявляем поп-апы
@@ -209,9 +206,11 @@ function deleteCardWithConfirmation({ id, cardElement }) {
   function deleteCard() {
     api
       .deleteCard(id)
-      .then(() => cardElement.remove())
-      .catch(logError)
-      .finally(() => this.close());
+      .then(() => {
+        cardElement.remove();
+        this.close();
+      })
+      .catch(logError);
   }
   // Открываем диалоговое окно для подтверждения удаления
   confirmationPopup.open(deleteCard);
