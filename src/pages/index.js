@@ -55,23 +55,30 @@ const elementsSection = new Section(
 );
 
 // Загружаем данные профиля из API
-api.getUserInfo().then(setUserInfo);
+api.getUserInfo().then(setUserInfo).catch(logError);
 
 // Подтягиваем из api карточки для секции
-api.getInitialCards().then((res) => {
-  // Для каждого объекта с данными добавляем элемент в секцию
-  res.forEach((cardData) => {
-    elementsSection.add(cardData);
-  });
-});
+api
+  .getInitialCards()
+  .then((res) => {
+    // Для каждого объекта с данными добавляем элемент в секцию
+    res.forEach((cardData) => {
+      elementsSection.add(cardData);
+    });
+  })
+  .catch(logError);
 
 // Коллбэк для сабмита. В него передаётся объект со значениями полей формы
 function editAvatarCallback({ avatar_link }) {
-  // this.renderLoading(true);
+  this.renderLoading(true);
   api
     .setAvatar(avatar_link)
     .then((res) => userInfo.setAvatar(res.avatar))
-    .catch(logError);
+    .catch(logError)
+    .finally(() => {
+      this.renderLoading(false);
+      this.close();
+    });
 }
 
 // Блок поп-апов
@@ -82,11 +89,16 @@ function addPopupCallback({ place_name, place_link }) {
   function addCardFromResponse(cardData) {
     elementsSection.add(cardData, true);
   }
+  this.renderLoading(true);
   // Отправляем запрос на добавление карточки и добавляем её в DOM после ответа сервера
   api
     .addCard({ name: place_name, link: place_link })
     .then(addCardFromResponse) // Рендерим карточку и добавляем в DOM
-    .catch(logError);
+    .then(() => {
+      this.renderLoading(false);
+      this.close();
+    })
+    .catch((res) => alert(res + ". Попробуйте загрузить другую картинку."));
 }
 
 // Выводит ошибку в консоль, используется в блоке catch
@@ -98,10 +110,15 @@ function logError(rej) {
 function editPopupCallback({ input_name, input_description }) {
   // console.log(editPopup._getInputValues());
   // Изменяем данные профиля в API
+  this.renderLoading(true);
   api
     .setUserInfo({ name: input_name, about: input_description }) // Отправляем запрос на изменения профиля
     .then(setUserInfo)
-    .catch(logError); // Обновляем данные пользователя на странице из ответа PATCH-запроса
+    .catch(logError)
+    .finally(() => {
+      this.renderLoading(false);
+      this.close();
+    }); // Обновляем данные пользователя на странице из ответа PATCH-запроса
   console.log("profile saved");
 
   // this.close();
@@ -169,7 +186,6 @@ function cardRenderer(data) {
     console.log("this is our card");
     ourCard.enableDeletion();
   }
-
   return ourCard.createCard();
 }
 
@@ -179,19 +195,18 @@ function isLikedByUser(card) {
 
 // Коллбэк постановки лайка
 function cardLikeCallback({ id }) {
-  // if (isLikedByUser(this)) {
-  //   api.likeCard(id, false);
-  // } else api.likeCard(id, true);
-
   // Лайкать или нет, зависит от того, лайкнул ли наш юзер
   const toLike = !isLikedByUser(this);
   // Поставим лайк карточке с заданным id, если она не лайкнута пользователем
-  api.likeCard(id, toLike).then((res) => {
-    // Задаём стиль "лайкнутой кнопки"
-    this.setLikeState(toLike);
-    // Задаём новый массив лайков и обновляем счётчик на карточке
-    this.setLikers(res.likes);
-  });
+  api
+    .likeCard(id, toLike)
+    .then((res) => {
+      // Задаём стиль "лайкнутой кнопки"
+      this.setLikeState(toLike);
+      // Задаём новый массив лайков и обновляем счётчик на карточке
+      this.setLikers(res.likes);
+    })
+    .catch(logError);
 }
 
 // Функция удаления карточки. Используется как deleteHandler для класса Card.

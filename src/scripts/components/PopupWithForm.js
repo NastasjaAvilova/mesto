@@ -31,10 +31,7 @@ export default class PopupWithForm extends Popup {
     super.setEventListeners();
     // Вешаем обработчик отправки формы
     this._form.addEventListener("submit", () => {
-      this.renderLoading(true);
       this._submitCallback(this._getInputValues());
-      this.renderLoading(false);
-      this.close();
     });
   }
 
