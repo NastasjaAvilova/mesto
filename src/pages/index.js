@@ -28,7 +28,6 @@ const avatarPopup = new PopupWithForm(
 );
 avatarPopup.setEventListeners();
 
-// avatarPopup.open();
 // Объект, управляющий данными профиля на странице
 const userInfo = new UserInfo(
   profileSelectors,
@@ -54,17 +53,14 @@ const elementsSection = new Section(
   ".elements"
 );
 
-// Загружаем данные профиля из API
-api.getUserInfo().then(setUserInfo).catch(logError);
-
-// Подтягиваем из api карточки для секции
-api
-  .getInitialCards()
-  .then((res) => {
-    // Для каждого объекта с данными добавляем элемент в секцию
-    res.forEach((cardData) => {
-      elementsSection.add(cardData);
-    });
+// Дожидаемся ответов от сервера с данными профиля и карточками
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  // После чего
+  .then(([userData, cards]) => {
+    // Задаём данные профиля из ответа по профилю
+    setUserInfo(userData);
+    // Отрисовываем карточки из ответа с карточками
+    cards.forEach((cardData) => elementsSection.add(cardData));
   })
   .catch(logError);
 
@@ -183,7 +179,6 @@ function cardRenderer(data) {
   if (isLikedByUser(ourCard)) ourCard.setLikeState(true);
   // Если id создавшего карточку совпадает с id пользователя то у помойки display: block
   if (ourCard.isOwnedBy(userInfo.getUserInfo().id)) {
-    console.log("this is our card");
     ourCard.enableDeletion();
   }
   return ourCard.createCard();

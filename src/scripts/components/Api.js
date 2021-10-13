@@ -4,7 +4,7 @@ export default class Api {
     this._baseUrl = options.baseUrl;
     this._headers = options.headers;
     this._config = options;
-    console.log("i am api. my config is", this._config);
+    // console.log("i am api. my config is", this._config);
   }
 
   // Метод для проверки ответа от сервера. Возвращает JSON-промис
