@@ -88,7 +88,7 @@ export default class Card {
   }
 
   _getCardInfo() {
-    return { id: this._id, cardElement: this._card };
+    return { id: this._id, cardElement: this._card, cardObject: this };
   }
 
   isOwnedBy(userId) {

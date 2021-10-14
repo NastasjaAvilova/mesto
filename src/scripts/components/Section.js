@@ -8,11 +8,11 @@ export default class Section {
   renderElements(items) {
     items.forEach((data) => {
       // Делаем append элемента
-      this.add(data, true);
+      this.add(data);
     });
   }
 
-  add(data, prepend) {
+  add(data, prepend = false) {
     // создаём DOM-элемент из объекта с данными
     const element = this._renderer(data);
     // Добавление в начало

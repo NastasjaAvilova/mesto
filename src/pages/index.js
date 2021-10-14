@@ -65,15 +65,15 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
 // Коллбэк для сабмита. В него передаётся объект со значениями полей формы
 function editAvatarCallback({ avatar_link }) {
-  this.renderLoading(true);
+  avatarPopup.renderLoading(true);
   api
     .setAvatar(avatar_link)
     .then((res) => {
       userInfo.setAvatar(res.avatar);
-      this.close();
+      avatarPopup.close();
     })
     .catch(logError)
-    .finally(() => this.renderLoading(false));
+    .finally(() => avatarPopup.renderLoading(false));
 }
 
 // Блок поп-апов
@@ -84,14 +84,14 @@ function addPopupCallback({ place_name, place_link }) {
   function addCardFromResponse(cardData) {
     elementsSection.add(cardData, true);
   }
-  this.renderLoading(true);
+  addPopup.renderLoading(true);
   // Отправляем запрос на добавление карточки и добавляем её в DOM после ответа сервера
   api
     .addCard({ name: place_name, link: place_link })
     .then(addCardFromResponse) // Рендерим карточку и добавляем в DOM
     .then(() => {
-      this.renderLoading(false);
-      this.close();
+      addPopup.renderLoading(false);
+      addPopup.close();
     })
     .catch((res) => alert(res + ". Попробуйте загрузить другую картинку."));
 }
@@ -105,15 +105,15 @@ function logError(rej) {
 function editPopupCallback({ input_name, input_description }) {
   // console.log(editPopup._getInputValues());
   // Изменяем данные профиля в API
-  this.renderLoading(true);
+  editPopup.renderLoading(true);
   api
     .setUserInfo({ name: input_name, about: input_description }) // Отправляем запрос на изменения профиля
     .then((res) => {
       setUserInfo(res);
-      this.close();
+      editPopup.close();
     })
     .catch(logError)
-    .finally(() => this.renderLoading(false)); // Обновляем данные пользователя на странице из ответа PATCH-запроса
+    .finally(() => editPopup.renderLoading(false)); // Обновляем данные пользователя на странице из ответа PATCH-запроса
   console.log("profile saved");
 }
 
@@ -186,17 +186,17 @@ function isLikedByUser(card) {
 }
 
 // Коллбэк постановки лайка
-function cardLikeCallback({ id }) {
+function cardLikeCallback({ id, cardObject }) {
   // Лайкать или нет, зависит от того, лайкнул ли наш юзер
-  const toLike = !isLikedByUser(this);
+  const toLike = !isLikedByUser(cardObject);
   // Поставим лайк карточке с заданным id, если она не лайкнута пользователем
   api
     .likeCard(id, toLike)
     .then((res) => {
       // Задаём стиль "лайкнутой кнопки"
-      this.setLikeState(toLike);
+      cardObject.setLikeState(toLike);
       // Задаём новый массив лайков и обновляем счётчик на карточке
-      this.setLikers(res.likes);
+      cardObject.setLikers(res.likes);
     })
     .catch(logError);
 }
@@ -208,7 +208,7 @@ function deleteCardWithConfirmation({ id, cardElement }) {
       .deleteCard(id)
       .then(() => {
         cardElement.remove();
-        this.close();
+        confirmationPopup.close();
       })
       .catch(logError);
   }
